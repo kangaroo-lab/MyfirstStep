@@ -1,35 +1,19 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="UTF-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="description" content="<?php echo $description; ?>">
-<title><?php echo $title; ?></title>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-<script src="https://www.gstatic.com/firebasejs/5.8.1/firebase-app.js"></script>
-<script src="https://www.gstatic.com/firebasejs/5.8.1/firebase-firestore.js"></script>
-<script src="/js/config.js"></script>
+
 <style>
-        body,html{
-            height: 100%;
-        }
-        p,h3{
-            margin: 0;
-        }
-        body{
-            margin: 0;
-            padding: 0;
-            background-color: #fffae1;
-        }
-
-
+    body,html{
+        height: 100%;
+    }
+    body{
+        margin: 0;
+        padding: 0;
+        background-color: #fffae1;
+    }
     @media screen and (min-width: 769px){
         .header{
             background-color: #fff5c1;
             height: 164px;
         }
-        h2{
+        .logoTitle{
             text-align: center;
             margin-top: 0;
             font-size: 42px;
@@ -60,7 +44,7 @@
                 width: 100%;
                 background-color: #fff;
                 height: 53px;
-                z-index: 1;
+                z-index: 5;
             }
         .headerLogoFixHide{
                 padding-right: 200px;
@@ -88,6 +72,15 @@
         }
         .headerContentsHide a:hover{
             color: rgba(0,0,0,1);
+        }
+        a{
+            text-align: center;
+            color: rgba(0,0,0,0.4);
+            text-decoration: none;
+        }
+        a :hover{
+            color: rgba(0,0,0,0.9);
+            text-decoration: none;
         }
     }
     @media screen and (max-width: 769px){
@@ -227,7 +220,7 @@
     <div class='header'>
         <?php
             $logo = 'Logo text';
-            echo "<h2>$logo</h2>";
+            echo "<h2 class='logoTitle'>$logo</h2>";
             $arr = array(
                 array(
                     "title" => "HOME",
@@ -258,7 +251,7 @@
         <?php endforeach;?>
         </div>
     </div>
-<?php endif?>
+<?php endif;?>
 
 <header>
     <div class='headerContentsHide'>
@@ -301,6 +294,7 @@
 
 <script>
     var windowSize = $(window).width();
+    <?php if($flag==true):?>
     if (windowSize < 768) {
         $('.header').hide();
         $(function() {
@@ -334,6 +328,40 @@
                 }
             });
     }
+    <?php else:?>
+    if (windowSize < 768) {
+        $('.header').hide();
+        $(function() {
+            $('.hamburger').click(function() {
+                $(this).toggleClass('active');
 
+                if ($(this).hasClass('active')) {
+                    $('.globalMenuSp').addClass('active');
+                } else {
+                    $('.globalMenuSp').removeClass('active');
+                    }
+
+                });
+        });
+        //メニュー内を閉じておく
+        $(function() {
+            $('.globalMenuSp a[href]').click(function() {
+                $('.globalMenuSp').removeClass('active');
+            $('.hamburger').removeClass('active');
+
+            });
+        });
+    } else {
+        $('header').hide();
+        $(window).scroll(function () {
+            var pos = $('.inner').offset();
+            if ($(this).scrollTop() > pos.top) {
+                $('header').fadeIn();
+            } else {
+                $('header').fadeOut();
+            }
+        });
+    }
+    <?php endif;?>
 
 </script>
