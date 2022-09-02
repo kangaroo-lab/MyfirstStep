@@ -4,108 +4,134 @@
     include '../../component/head.php';
 ?>
 <style>
-body.no_scroll{
-   overflow: hidden;
-}
-body{
-    margin: 0px;
-    padding: 0px;
-    background-color: #e7e7e7;
-}
-p{
-    padding:0 auto;
-    margin: 0 auto;
-    padding-left: 10px;
-}
-header{
-    height: 8vh;
-    padding: 0px;
-    background-color: #9EF26A;
-}
-img{
-    width:80%;
-}
-#post_area{
-    display: table;
-    background-color: white;
-    width: 100%;
-    height: 75vh;
-}
-.page_make{
-    border: solid 0.5px lightgray;
-    display: table-cell;
-    width: 50%;
-    border-width: 0.5px;
-}
-.post_write_area{
-    position: relative;
-}
-.post_confirm_area{
-    position: relative;
-}
-#post_write_area_input{
-    position: fixed;
-    align-items: center;
-    width: 48%;
-    height: 75vh;
-    overflow: scroll;
-    border-left: 1px;
-    border-top: 0px;
-    border-bottom: 0px;
-    padding-left: 1vw;
-}
-#post_write_area_input:focus{
-    outline: none;
-}
-#post_confirm_area_watch{
-    background-color: #fffae1;
-    overflow-wrap: break-word;
-    white-space: pre-wrap;
-    position: fixed;
-    width: 48%;
-    height: 75vh;
-    overflow: scroll;
-    border-left: 1px;
-    border-top: 0px;
-    border-bottom: 0px;
-    padding-left: 1vw;
-}
-.title_type_1{
-    padding-left: 10px;
-    border-bottom:dashed 2px orange;
-    border-left: solid 4px orange;
-}
-.title_type_2{
-    padding-left: 10px;
-    border-bottom:solid 1px #ffd4b1;
-}
-.title_type_3{
-    padding-left: 10px;
-}
-table{
-    margin-top: 3vh;
-  border-collapse: collapse;
-  border-spacing: 0;
-  table-layout: fixed;
-}
-thead tr{
-    background: #ff952d;
-    padding: 10px, 5px;
-}
-tbody tr {
-	background: lemonchiffon;
-}
-tbody tr:nth-child(odd) {
-	background: #fff;
-}
-td{
-    padding: 10px;
-}
-th{
-    padding: 10px;
-}
+    body.no_scroll{
+    overflow: hidden;
+    }
+    body{
+        margin: 0px;
+        padding: 0px;
+        background-color: #fff;
+    }
+    p{
+        padding:0 auto;
+        margin: 0 auto;
+        padding-left: 10px;
+    }
+    header{
+        height: 8vh;
+        padding: 0px;
+        background-color: #9EF26A;
+    }
+    img{
+        width:80%;
+    }
+    #post_area{
+        display: table;
+        background-color: white;
+        width: 100%;
+        height: 75vh;
+    }
+    .page_make{
+        border: solid 0.5px lightgray;
+        display: table-cell;
+        width: 50%;
+        border-width: 0.5px;
+    }
+    .post_write_area{
+        position: relative;
+    }
+    .post_confirm_area{
+        position: relative;
+    }
+    #post_write_area_input{
+        position: fixed;
+        align-items: center;
+        width: 48%;
+        height: 75vh;
+        overflow: scroll;
+        border-left: 1px;
+        border-top: 0px;
+        border-bottom: 0px;
+        padding-left: 1vw;
+    }
+    #post_write_area_input:focus{
+        outline: none;
+    }
+    #post_confirm_area_watch{
+        background-color: #fffae1;
+        overflow-wrap: break-word;
+        white-space: pre-wrap;
+        position: fixed;
+        width: 48%;
+        height: 75vh;
+        overflow: scroll;
+        border-left: 1px;
+        border-top: 0px;
+        border-bottom: 0px;
+        padding-left: 1vw;
+    }
+    .title_type_1{
+        padding-left: 10px;
+        border-bottom:dashed 2px orange;
+        border-left: solid 4px orange;
+    }
+    .title_type_2{
+        padding-left: 10px;
+        border-bottom:solid 1px #ffd4b1;
+    }
+    .title_type_3{
+        padding-left: 10px;
+    }
+    table{
+        margin-top: 3vh;
+    border-collapse: collapse;
+    border-spacing: 0;
+    table-layout: fixed;
+    }
+    thead tr{
+        background: #ff952d;
+        padding: 10px, 5px;
+    }
+    tbody tr {
+        background: lemonchiffon;
+    }
+    tbody tr:nth-child(odd) {
+        background: #fff;
+    }
+    td{
+        padding: 10px;
+    }
+    th{
+        padding: 10px;
+    }
+    input[type="text"]{
+        width: 100%; /*親要素いっぱい広げる*/
+        padding: 10px 15px; /*ボックスを大きくする*/
+        font-size: 16px;
+        border-radius: 3px; /*ボックス角の丸み*/
+        border: none;
+        border-bottom: 2px solid #ddd; /*枠線*/
+        box-sizing: border-box; /*横幅の解釈をpadding, borderまでとする*/
+    }
+    input[type="text"]:focus{
+        z-index: 10;
+        outline: 0;
+    }
+    .some_class_name{
+        width: 100%;
+        --tags-focus-border-color: none;
+    }
 </style>
 </head>
+<script>
+    function submit_post(){
+        const submit_html = document.getElementById('post_confirm_area_watch')
+        const submit_text = submit_html.innerHTML
+        const send_content = document.getElementById('submit_content')
+        send_content.setAttribute('value',submit_text)
+        console.log('ON',submit_text)
+    }
+</script>
 <body>
 <header>
 <div>
@@ -114,12 +140,14 @@ th{
 </header>
     <div id='fill'>
         <div id='post'>
-            <form action="admin_post_confirm.php"method="post">
-            <div id='post_title_area'>
-                <input placeholder="タイトル" tabindex="10" class="title_input" value="">
-            </div>
-            <div id='post_tag_area'>
-                <input autocomplete="off" placeholder="タグ" tabindex="20" type="text" class="css-amcp4b ed5758y1" value="" >
+            <form  onsubmit="return false;" name='post_form'action="admin_post_confirm.php"method="post">
+            <div class='head_input_group'>
+                <div id='post_input_area'>
+                    <input name="title"type="text"placeholder="タイトル" tabindex="10" class="title_input" value=""spellcheck="false"autocomplete='off'translate='no'>
+                </div>
+                <div id='post_input_area'>
+                    <input name='tags' class='some_class_name'placeholder="ハッシュタグ(最大５個まで)" id="tag_input" value="" >
+                </div>
             </div>
             <div id='post_area'>
                 <div class='page_make post_write_area'>
@@ -133,25 +161,51 @@ th{
             </div>
             <div id='post_button_area'>
                 <input type="hidden" id='submit_content' name="content">
-                <input type="submit" id='submit' value="送信">
+                <input type="button" onclick='{submit_post();submit()}' value="送信">
             </div>
             </form>
         </div>
     </div>
 </body>
+<script>
+    var input = document.querySelector('input[name=tags]'),
+        // init Tagify script on the above inputs
+        tagify = new Tagify(input,{
+            whitelist: [],
+            maxTags: 5,
+            dropdown: {
+                maxItems: 20,           // <- mixumum allowed rendered suggestions
+                classname: "tags-look", // <- custom classname for this dropdown, so it could be targeted
+                enabled: 0,             // <- show suggestions on focus
+                closeOnSelect: false    // <- do not hide the suggestions dropdown once an item has been selected
+            }
+        });
+
+    // "remove all tags" button event listener
+
+    // Chainable event listeners
+    tagify.on('add', onAddTag)
+        .on('remove', onRemoveTag)
+        .on('invalid', onInvalidTag);
+
+    // tag added callback
+    function onAddTag(e){
+        console.log(e, e.detail);
+        console.log( tagify.DOM.originalInput.value )
+        tagify.off('add', onAddTag) // exmaple of removing a custom Tagify event
+    }
+
+    // tag remvoed callback
+    function onRemoveTag(e){
+        console.log(e, e.detail);
+    }
+
+    // invalid tag added callback
+    function onInvalidTag(e){
+        console.log(e, e.detail);
+    }
+</script>
 <script type="text/javascript">
-function submit_post(){
-    const submit_html = document.getElementById('post_confirm_area_watch')
-    const submit_text = submit_html.innerHTML
-    const send_content = document.getElementById('submit_content')
-    send_content.setAttribute('value',submit_text)
-    console.log('ON',submit_text)
-}
-
-const submit = document.getElementById('submit')
-submit.onclick = submit_post
-
-
 let i = 0
 let col = 1
 const confirmView = document.getElementById('post_confirm_area_watch')

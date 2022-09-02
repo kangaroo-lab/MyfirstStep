@@ -46,7 +46,7 @@
             ),
             array(
                 "title" => "管理者ページ",
-                "link" => "../pages/admin.php"
+                "link" => "../pages/admin_pages/admin.php"
             )
         );
         echo "<div class='footerTextArea'>";

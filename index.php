@@ -3,6 +3,7 @@
 <head>
   <meta charset="utf-8">
   <title>Hello FireStore</title>
+  <?php include "component/head.php"?>
 <style type="text/css">
   .container{
     display: flex;
@@ -35,6 +36,9 @@
     color:#fff;
     text-shadow: 0 0 15px #666;
   }
+  .post_area_title{
+      margin: 0 auto;
+  }
   @media screen and (min-width: 769px){
     /* top contents */
     .inner{
@@ -58,8 +62,8 @@
         background-color: #fff;
         margin-left: 2vw;
         position: relative;
-        width: 35vh;
-        height: 174px;
+        width: 20vw;
+        height: 25vh;
         margin-top: 48px;
         border-style: solid;
         border-radius: 44px;
@@ -181,7 +185,7 @@
     .topContent{
         background-color: #fff;
         position: relative;
-        width: 20vh;
+        width: 40vw;
         height: 20vh;
         margin-top: 48px;
         margin: 1vh;
@@ -204,15 +208,26 @@
         margin-bottom: 7px;
     }
     .topContentTitle{
+        margin: 0;
         margin-bottom: 0;
     }
     .topContentSub{
+        margin: 0;
         font-size: 11px;
+    }
+    a{
+        text-align: center;
+        color: rgba(0,0,0,0.4);
+        text-decoration: none;
+    }
+    a :hover{
+        color: rgba(0,0,0,0.9);
+        text-decoration: none;
     }
 
     /* aboutUs */
     .aboutUs{
-        background-image: url('../img/map.jpeg');
+        background:linear-gradient(to bottom, transparent 0 1%,  #fff 80%),url('img/map.jpeg'); ;
         background-color:rgba(255,255,255,0.8);
         background-blend-mode:lighten;
         background-size: cover;
@@ -220,7 +235,7 @@
         padding-left: 18vh;
         padding-right: 18vh;
         width: auto;
-        height: 30vh;
+        height: 50vw;
         display: flex;
         flex-direction: row;
         justify-content: space-between;
@@ -232,10 +247,12 @@
     }
     .aboutUsTitle{
         font-size: 4.375vw;
+        margin: 2vw auto;
     }
     .post{
         font-size: 2.5vw;
         margin-bottom: 35px;
+        margin: 2vw auto;
     }
     .button01 a {
         display: flex;
@@ -276,6 +293,10 @@
         width: 100%;
     }
     /* TypeA */
+    .typeA{
+        margin-top: 0;
+        background:linear-gradient(to top,rgba(255,255,255,0) 0, #fff 40%);
+    }
   }
 </style>
 </head>
@@ -288,8 +309,8 @@
   <div class='homeVideoArea'>
     <div class='videoArea'>
       <h1 class='logoTitleOnVideo'>すてっぷ</h1>
-      <video id='video'poster='../img/sky_00165.jpeg'webkit-playsinline playsinline muted autoplay loop>
-        <source src='../img/airplane.mp4' type="video/mp4">
+      <video id='video'poster='img/sky.jpeg'webkit-playsinline playsinline muted autoplay loop>
+        <source src='img/airplane.mp4' type="video/mp4">
       </video>
     </div>
   </div>
@@ -365,7 +386,7 @@
 
     <!--  表示するテーブル -->
     <div class='post_area typeA'>
-            <h3>Title</h3>
+            <h3 class='post_area_title'>Title</h3>
             <div class='typeA_colomn'>
                 <div class='typeA_row'>
                     <div class='typeA_contents'>
@@ -375,7 +396,7 @@
             </div>
     </div>
     <div class='post_area typeB'>
-            <h3>Title</h3>
+            <h3 class='post_area_title'>Title</h3>
             <div class='typeB_colomn'>
                 <div class='typeB_row'>
                     <div class='typeB_contents'></div>
@@ -383,7 +404,7 @@
             </div>
     </div>
     <div class='post_area typeC'>
-            <h3>Title</h3>
+            <h3 class='post_area_title'>Title</h3>
             <div class='typeC_colomn'>
                 <div class='typeC_row'>
                     <div class='typeC_contents'></div>
@@ -391,7 +412,7 @@
             </div>
     </div>
     <div class='post_area typeD'>
-            <h3>Title</h3>
+            <h3 class='post_area_title'>Title</h3>
             <div class='typeD_colomn'>
                 <div class='typeD_row'>
                     <div class='typeD_contents'></div>
