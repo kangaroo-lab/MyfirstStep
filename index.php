@@ -398,7 +398,7 @@
     <div class='post_area typeB'>
             <h3 class='post_area_title'>Title</h3>
             <div class='typeB_colomn'>
-                <div class='typeB_row'>
+                <div class='typeB_row'id='typeB_row'>
                     <div class='typeB_contents'></div>
                 </div>
             </div>
@@ -454,10 +454,22 @@
     const ref = db.collection('post');
     ref.onSnapshot((snapShot)=>{
         snapShot.forEach((doc)=>{
-            const data = doc.data();
-
+            const type = 'typeB';
+            putLink(type,doc);
         })
     })
+
+    function putLink(type,doc){
+            const data = doc.data();
+            const link = document.createElement('a');
+            link.setAttribute('href','pages/post.php?id='+doc.id);
+            const divB = document.createElement('div');
+            divB.setAttribute('class',type+'_contents');
+            const postArea = document.getElementById(type+'_row');
+            divB.innerText = data.title;
+            link.appendChild(divB);
+            postArea.appendChild(link);
+    }
 
   // このあたりにこれから掲載するサンプルコードなどを記述。
 </script>

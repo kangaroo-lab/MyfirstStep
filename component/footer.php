@@ -3,7 +3,7 @@
             margin: 0;
             margin-bottom: 0;
             background-color: #000;
-            height: 100%;
+            height: 20vh;
         }
         .footerLogo{
             font-size: 26px;

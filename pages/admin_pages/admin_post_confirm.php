@@ -104,8 +104,5 @@
                 .catch((error) => {
                     console.log(`追加に失敗しました (${error})`);
                 });
-        console.log(confirmTxt)
-        console.log(tags)
-        console.log(title)
     }
 </script>
