@@ -3,7 +3,7 @@
             margin: 0;
             margin-bottom: 0;
             background-color: #000;
-            height: 143px;
+            height: 100%;
         }
         .footerLogo{
             font-size: 26px;
@@ -24,7 +24,7 @@
         }
 </style>
 
-<div class='footer'>
+<footer class='footer'>
     <h3 class='footerLogo'>LOGO</h3>
     <?php
         $arr = array(
@@ -55,4 +55,4 @@
         };
         echo "</div>";
     ?>
-</div>
+</footer>

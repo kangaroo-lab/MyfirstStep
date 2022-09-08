@@ -67,12 +67,45 @@
     ?>
     <div class='container'>
         <div class='comfirmPost'>
+            <img src="<?=$_POST['sumnail_url']?>" alt="">
+            <h1><?=$_POST['title']?></h1>
             <?=$_POST['content']?>
+            <?=$_POST['tags']?>
         </div>
-        <form>
+        <div class='buttonArea'>
             <input type="hidden" value="">
-            <input type="button" value='完了' id='complete'>
-            <input type='button' value="編集" id='edit'>
-        </form>
+            <button id='complete' onclick='putHtml()'>完了</button>
+            <button id='edit' onclick="history.back()">編集</button>
+        </div>
     </div>
 </body>
+<script>
+    const confirmTxt = '<?=$_POST['content']?>';
+    const tags = <?=$_POST['tags']?>;
+    const title = '<?=$_POST['title']?>';
+    const sumnail = "<?=$_POST['sumnail_url']?>";
+
+    function putHtml(){
+        // Firestoreのオブジェクト取得
+        var db = firebase.firestore();
+            db.collection("post").add({
+                name : 'user',
+                date : Date.now(),
+                title : title,
+                sumnail : sumnail,
+                tags : tags,
+                post : confirmTxt
+            })
+                .then((doc) => {
+                    window.location.href = 'admin_post_complete.php'; // 通常の遷移
+                    window.open('admin_post_complete.php', '_blank'); // 新しいタブを開き、ページを表示
+                    console.log(`追加に成功しました (${doc.id})`);
+                })
+                .catch((error) => {
+                    console.log(`追加に失敗しました (${error})`);
+                });
+        console.log(confirmTxt)
+        console.log(tags)
+        console.log(title)
+    }
+</script>

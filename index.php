@@ -450,17 +450,14 @@
         });
     });
   // Firestoreのオブジェクト取得
-  // var db = firebase.firestore();
-  // 　db.collection("users").add({
-  //   name: "小林",
-  //   age: 27
-  //   })
-  //   .then((doc) => {
-  //   console.log(`追加に成功しました (${doc.id})`);
-  //   })
-  //   .catch((error) => {
-  //   console.log(`追加に失敗しました (${error})`);
-  //   });
+    const db = firebase.firestore();
+    const ref = db.collection('post');
+    ref.onSnapshot((snapShot)=>{
+        snapShot.forEach((doc)=>{
+            const data = doc.data();
+
+        })
+    })
 
   // このあたりにこれから掲載するサンプルコードなどを記述。
 </script>

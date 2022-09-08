@@ -224,7 +224,7 @@
             $arr = array(
                 array(
                     "title" => "HOME",
-                    "link" => "top.php"
+                    "link" => "http://localhost:8888/index.php"
                 ),
                 array(
                     "title" => "旅情報",
@@ -246,7 +246,7 @@
             foreach($arr as $val):
         ?>
             <div class='henderContent'>
-                <a href='<?= $val["title"]==="HOME"?"top.php":"list.php?category=$val[link]"?>'><?=$val["title"]?></a>
+                <a href='<?= $val["title"]==="HOME"?"http://localhost:8888/index.php":"list.php?category=$val[link]"?>'><?=$val["title"]?></a>
             </div>
         <?php endforeach;?>
         </div>
@@ -266,7 +266,7 @@
                 $array = array(
                     array(
                         "title" => "HOME",
-                        "link" => "top.php"
+                        "link" => "http://localhost:8888/index.php"
                     ),
                     array(
                         "title" => "旅情報",

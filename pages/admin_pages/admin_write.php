@@ -29,7 +29,7 @@
         display: table;
         background-color: white;
         width: 100%;
-        height: 75vh;
+        height: 70vh;
     }
     .page_make{
         border: solid 0.5px lightgray;
@@ -47,7 +47,7 @@
         position: fixed;
         align-items: center;
         width: 48%;
-        height: 75vh;
+        height: 70vh;
         overflow: scroll;
         border-left: 1px;
         border-top: 0px;
@@ -58,17 +58,13 @@
         outline: none;
     }
     #post_confirm_area_watch{
+        position: fixed;
         background-color: #fffae1;
         overflow-wrap: break-word;
         white-space: pre-wrap;
-        position: fixed;
         width: 48%;
-        height: 75vh;
+        height: 70vh;
         overflow: scroll;
-        border-left: 1px;
-        border-top: 0px;
-        border-bottom: 0px;
-        padding-left: 1vw;
     }
     .title_type_1{
         padding-left: 10px;
@@ -117,6 +113,15 @@
         z-index: 10;
         outline: 0;
     }
+    input[type="file"]{
+        display: none;
+    }
+    label{
+        width: 100%; /*親要素いっぱい広げる*/
+        padding: 10px 15px; /*ボックスを大きくする*/
+        font-size: 16px;
+        color: #aaa;
+    }
     .some_class_name{
         width: 100%;
         --tags-focus-border-color: none;
@@ -146,13 +151,19 @@
                     <input name="title"type="text"placeholder="タイトル" tabindex="10" class="title_input" value=""spellcheck="false"autocomplete='off'translate='no'>
                 </div>
                 <div id='post_input_area'>
+                    <label id='sumnail_label'>
+                        サムネイルを選択してください
+                        <input name="sumnail"type="file"id="sumnail_input" >
+                    </label>
+                </div>
+                <div id='post_input_area'>
                     <input name='tags' class='some_class_name'placeholder="ハッシュタグ(最大５個まで)" id="tag_input" value="" >
                 </div>
             </div>
             <div id='post_area'>
                 <div class='page_make post_write_area'>
                     <div id='post_write_area_input' spellcheck="false"autocomplete='off'translate='no'role='textbox'area_multiline='true'contenteditable='true'data-test-editor-body="true">
-                        <div id='post_write_area_line'value=''>
+                        <div id='post_write_area_line'>
                             <br>
                         </div>
                     </div>
@@ -160,6 +171,7 @@
                 <div class='page_make post_confirm_area'><div id='post_confirm_area_watch'></div></div>
             </div>
             <div id='post_button_area'>
+                <input name="sumnail_url"type="hidden"id="sumnail_url">
                 <input type="hidden" id='submit_content' name="content">
                 <input type="button" onclick='{submit_post();submit()}' value="送信">
             </div>
@@ -377,24 +389,46 @@ function txtInputWdrop(event, src, name){
 
 const storage = firebase.storage();
 
-function pushStorage(event,file){
-    const storageRef = storage.ref('post-img/'+file.name)
+function pushStorage(event,file,adress){
+    const storageRef = storage.ref(adress+file.name)
     storageRef.put(file)
     storageRef.getDownloadURL()
         .then((url)=>{
-            console.log(url)
             txtInputWdrop(event, url, file.name)
             photo_dic[file.name] = url
             return url
         })
 }
+
+const sumnail_input = document.getElementById('sumnail_input');
+const sumnail_label = document.getElementById('sumnail_label');
+sumnail_input.addEventListener('change',(evt)=>{
+    const input = evt.target;
+    const file = input.files[0];
+    const ref = storage.ref('sumnail/'+file.name);
+    ref.put(file)
+        .then((e)=>{
+            ref.getDownloadURL()
+            .then((url)=>{
+                console.log('url is ',url)
+                const sumnail_url_input = document.getElementById('sumnail_url')
+                sumnail_url_input.setAttribute('value',url)
+            })
+            sumnail_label.innerText = file.name
+        })
+        .catch((e)=>{
+            sumnail_label.innerText = file.name
+            console.log(e)
+        })
+})
+
 text.addEventListener('keypress',enterKey)
 text.addEventListener('input', inputChange);
 text.addEventListener('drop',(event)=>{
 	event.stopPropagation();
 	event.preventDefault();
     const file = event.dataTransfer.files[0];
-    const src = pushStorage(event,file)
+    const src = pushStorage(event,file,adress='post-img/')
     // const name = event.dataTransfer.files[0].name;
 	// const reader = new FileReader();
 	// reader.onload = function (e) {
