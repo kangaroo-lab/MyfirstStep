@@ -60,6 +60,7 @@
             width: 90%;
         }
     }
+
 </style>
     <?php
         $flag = true;
@@ -80,6 +81,10 @@
     </div>
 </body>
 <script>
+    const url = new URL(location.href);
+    const params = new URLSearchParams(url.search);
+    const id = params.get('id');
+
     const confirmTxt = '<?=$_POST['content']?>';
     const tags = <?=$_POST['tags']?>;
     const title = '<?=$_POST['title']?>';
@@ -89,7 +94,7 @@
     function putHtml(){
         // Firestoreのオブジェクト取得
         var db = firebase.firestore();
-            db.collection("post").add({
+            db.collection("post").doc(id).update({
                 name : 'user',
                 date : new Date(),
                 title : title,

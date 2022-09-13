@@ -9,6 +9,7 @@
             <img id="sumnail"src="" alt="サムネイル">
         </div>
         <div id='titleDiv'>
+            <p id='dateTime'></p>
             <h1 id='title'></h1>
         </div>
         <div id='fill'></div>
@@ -25,6 +26,7 @@
     const fill = document.getElementById('fill');
     const titleTxt = document.getElementById('title');
     const sumnail = document.getElementById('sumnail');
+    const dateTimeBox = document.getElementById('dateTime');
 
     const db = firebase.firestore();
     db.collection('post').doc(id)
@@ -33,6 +35,7 @@
             titleTxt.innerText = data.title;
             fill.innerHTML = data.post;
             sumnail.setAttribute('src',data.sumnail);
+            dateTimeBox.innerText = data.date.toDate().toDateString()
         })
         .then(()=>{
 

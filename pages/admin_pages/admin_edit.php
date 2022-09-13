@@ -129,6 +129,10 @@
 </style>
 </head>
 <script>
+    const url = new URL(location.href);
+    const params = new URLSearchParams(url.search);
+    const id = params.get('id');
+
     function submit_post(){
         const write_html = document.getElementById('post_write_area_input')
         const write_text = write_html.innerHTML
@@ -148,10 +152,10 @@
 </header>
     <div id='fill'>
         <div id='post'>
-            <form  onsubmit="return false;" name='post_form'action="admin_post_confirm.php"method="post">
+            <form  onsubmit="return false;" name='post_form'action="admin_edit_confirm.php?id=<?=$_GET['id']?>"method="post">
             <div class='head_input_group'>
                 <div id='post_input_area'>
-                    <input name="title"type="text"placeholder="タイトル" tabindex="10" class="title_input" value=""spellcheck="false"autocomplete='off'translate='no'>
+                    <input id='title_input'name="title"type="text"placeholder="タイトル" tabindex="10" class="title_input" value=""spellcheck="false"autocomplete='off'translate='no'>
                 </div>
                 <div id='post_input_area'>
                     <label id='sumnail_label'>
@@ -174,7 +178,7 @@
                 <div class='page_make post_confirm_area'><div id='post_confirm_area_watch'></div></div>
             </div>
             <div id='post_button_area'>
-                <input name="sumnail_url"type="hidden"id="sumnail_url">
+                <input name="sumnail_url"type="hidden"id="sumnail_url"value="">
                 <input type="hidden" id='submit_content' name="content"><input type="hidden" id='write_content' name='write'>
                 <input type="button" onclick='{submit_post();submit()}' value="送信">
             </div>
@@ -183,6 +187,7 @@
     </div>
 </body>
 <script>
+
     var input = document.querySelector('input[name=tags]'),
         // init Tagify script on the above inputs
         tagify = new Tagify(input,{
@@ -266,7 +271,8 @@ function makePutHtml(elem, event, num){
             result = result.createElement('img');
             result.setAttribute('id','post_confirm_area_pa'+num)
             const src = elem.getAttribute('value');
-            result.setAttribute('src',photo_dic[text.match(/\[(.+)\]/)[1]])
+            // result.setAttribute('src',photo_dic[text.match(/\[(.+)\]/)[1]])
+            result.setAttribute('src',text.match(/\((.+)\)/)[1])
             result.setAttribute('alt','img')
             return result
             break;
@@ -383,6 +389,7 @@ function inputChange(event){
     confirmView.scrollTo(0, confirmView.scrollHeight);
 }
 let text = document.getElementById('post_write_area_input');
+console.log(text.innerHTML)
 
 function txtInputWdrop(event, src, name){
     const input = event.target
@@ -405,6 +412,7 @@ function pushStorage(event,file,adress){
 
 const sumnail_input = document.getElementById('sumnail_input');
 const sumnail_label = document.getElementById('sumnail_label');
+const sumnail_url_input = document.querySelector('input[name="sumnail_url"]');
 sumnail_input.addEventListener('change',(evt)=>{
     const input = evt.target;
     const file = input.files[0];
@@ -414,8 +422,7 @@ sumnail_input.addEventListener('change',(evt)=>{
             ref.getDownloadURL()
             .then((url)=>{
                 console.log('url is ',url)
-                const sumnail_url_input = document.getElementById('sumnail_url')
-                sumnail_url_input.setAttribute('value',url)
+                sumnail_url_input.value=url
             })
             sumnail_label.innerText = file.name
         })
@@ -446,4 +453,19 @@ text.addEventListener('drop',(event)=>{
 })
 </script>
 <script>
+
+    const post_write_area_input = document.getElementById('post_write_area_input');
+    const title = document.querySelector('input[name="title"]')
+
+    const db = firebase.firestore();
+    db.collection('post').doc(id)
+        .onSnapshot((doc)=>{
+            const data = doc.data();
+            title.value = data.title;
+            post_write_area_input.innerHTML = data.write
+            sumnail_label.innerText = data.sumnail
+            sumnail_url_input.value = data.sumnail
+        })
+
+console.log(text.innerHTML)
 </script>
