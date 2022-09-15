@@ -438,7 +438,8 @@ sumnail_input.addEventListener('change',(evt)=>{
         })
         .catch((e)=>{
             sumnail_label.innerText = file.name
-            console.log(e)
+            console.log('ダメだった臭い')
+            console.log(e.message)
         })
 })
 
