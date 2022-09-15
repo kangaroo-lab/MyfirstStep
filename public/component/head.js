@@ -18,6 +18,6 @@ document.write(`
 <script src="https://www.gstatic.com/firebasejs/5.8.1/firebase-app.js"></script>
 <script src="https://www.gstatic.com/firebasejs/5.8.1/firebase-firestore.js"></script>
 <script src='https://www.gstatic.com/firebasejs/5.8.1/firebase-storage.js'></script>
-<script src="/js/config.js"></script>
+<script src="js/config.js"></script>
 </head>
 `)
