@@ -2,11 +2,10 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<metahttp-equiv="content-type" content="text/html; charset=UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="description" content="echo $description">
-<title>echo $title;</title>
+<meta name="description">
+<title>Postページ</title>
 <link href="https://use.fontawesome.com/releases/v6.1.2/css/all.css" rel="stylesheet">
 
 <script src="https://cdn.jsdelivr.net/npm/@yaireo/tagify/dist/tagify.min.js"></script>
@@ -19,6 +18,7 @@
 <script src='https://www.gstatic.com/firebasejs/5.8.1/firebase-storage.js'></script>
 <script src="/js/config.js"></script>
 </head>
+
 <style>
     #sumnailDiv{
         width: 100%;
@@ -59,16 +59,18 @@
     const sumnail = document.getElementById('sumnail');
     const dateTimeBox = document.getElementById('dateTime');
 
+
     const db = firebase.firestore();
     db.collection('post').doc(id)
         .onSnapshot((doc)=>{
             const data = doc.data();
             titleTxt.innerText = data.title;
+            $('title').html(data.title);
             fill.innerHTML = data.post;
+            const text = fill.innerText;
+            console.log(text);
+            document.querySelector('meta[name="description"]').setAttribute("content",text.replace(/\s+/g, ''));
             sumnail.setAttribute('src',data.sumnail);
             dateTimeBox.innerText = data.date.toDate().toDateString()
-        })
-        .then(()=>{
-
         })
 </script>
