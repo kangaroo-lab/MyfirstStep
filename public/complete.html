@@ -21,8 +21,17 @@
 </head>
 
 <body>
+    <div id="header"></div>
     <div>
         <a href="write.php">新しい記事をかく</a>
         <a href="admin.html">管理者ページに戻る</a>
     </div>
+    <div id="footer"></div>
 </body>
+
+<script>
+    $(function(){
+      $('#header').load("../component/header.html")
+      $('#footer').load("../component/footer.html")
+    })
+</script>
