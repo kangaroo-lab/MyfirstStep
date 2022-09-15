@@ -222,19 +222,19 @@
 
     // tag added callback
     function onAddTag(e){
-        console.log(e, e.detail);
-        console.log( tagify.DOM.originalInput.value )
+        // console.log(e, e.detail);
+        // console.log( tagify.DOM.originalInput.value )
         tagify.off('add', onAddTag) // exmaple of removing a custom Tagify event
     }
 
     // tag remvoed callback
     function onRemoveTag(e){
-        console.log(e, e.detail);
+        // console.log(e, e.detail);
     }
 
     // invalid tag added callback
     function onInvalidTag(e){
-        console.log(e, e.detail);
+        // console.log(e, e.detail);
     }
 </script>
 <script type="text/javascript">
@@ -299,7 +299,6 @@ function makePutHtml(elem, event, num){
             result = result.createElement('p');
             result.setAttribute('id','post_confirm_area_pa'+num)
             if(text[0]=='｜' && table_list[text]!=null){
-                console.log('table!!')
                 const table = document.createElement('table')
                 table.setAttribute('id','post_confirm_area_pa'+num)
                 const thead = document.createElement('thead')
@@ -430,7 +429,6 @@ sumnail_input.addEventListener('change',(evt)=>{
         .then((e)=>{
             ref.getDownloadURL()
             .then((url)=>{
-                console.log('url is ',url)
                 const sumnail_url_input = document.getElementById('sumnail_url')
                 sumnail_url_input.setAttribute('value',url)
             })
