@@ -216,43 +216,6 @@
             }
     }
 </style>
-<?php if($flag === true):?>
-    <div class='header'>
-        <?php
-            $logo = 'Logo text';
-            echo "<h2 class='logoTitle'>$logo</h2>";
-            $arr = array(
-                array(
-                    "title" => "HOME",
-                    "link" => "http://localhost:8888/index.php"
-                ),
-                array(
-                    "title" => "旅情報",
-                    "link" => "trip"
-                ),
-                array(
-                    "title" => "留学",
-                    "link" => "study"
-                ),
-                array(
-                    "title" => "心理テスト",
-                    "link" => "test"
-                ),
-                array(
-                    "title" => "マイル",
-                    "link" => "mile"
-                ));
-            echo "<div class='headerContents'>";
-            foreach($arr as $val):
-        ?>
-            <div class='henderContent'>
-                <a href='<?= $val["title"]==="HOME"?"http://localhost:8888/index.php":"list.php?category=$val[link]"?>'><?=$val["title"]?></a>
-            </div>
-        <?php endforeach;?>
-        </div>
-    </div>
-<?php endif;?>
-
 <header>
     <div class='headerContentsHide'>
         <div class="hamburger">
@@ -262,39 +225,17 @@
         </div>
         <h4 class='headerLogoFixHide'>Logo text</h4>
         <nav class='globalMenuSp'>
-            <?php
-                $array = array(
-                    array(
-                        "title" => "HOME",
-                        "link" => "http://localhost:8888/index.php"
-                    ),
-                    array(
-                        "title" => "旅情報",
-                        "link" => "trip"
-                    ),
-                    array(
-                        "title" => "留学",
-                        "link" => "study"
-                    ),
-                    array(
-                        "title" => "心理テスト",
-                        "link" => "test"
-                    ),
-                    array(
-                        "title" => "マイル",
-                        "link" => "mile"
-                    ));
-                    foreach($array as $val):
-            ?>
-                <div class='henderContentHide'><a href='<?= $val["title"]==="HOME"?"top.php":"list.php?category=$val[lint]"?>'><?=$val["title"]?></a></div>
-            <?php endforeach;?>
-                    </nav>
+            <div class='henderContentHide'><a href='index.html'>Home</a></div>
+            <div class='henderContentHide'><a href=''>旅情報</a></div>
+            <div class='henderContentHide'><a href=''>留学</a></div>
+            <div class='henderContentHide'><a href=''>心理テスト</a></div>
+            <div class='henderContentHide'><a href=''>マイル</a></div>
+        </nav>
     </div>
 </header>
 
 <script>
     var windowSize = $(window).width();
-    <?php if($flag==true):?>
     if (windowSize < 768) {
         $('.header').hide();
         $(function() {
@@ -320,48 +261,11 @@
     } else {
         $('header').hide();
         $(window).scroll(function () {
-            var pos = $('.header').offset();
-                if ($(this).scrollTop() > pos.top) {
+                if ($(this).scrollTop() > 300) {
                     $('header').fadeIn();
                 } else {
                     $('header').fadeOut();
                 }
             });
     }
-    <?php else:?>
-    if (windowSize < 768) {
-        $('.header').hide();
-        $(function() {
-            $('.hamburger').click(function() {
-                $(this).toggleClass('active');
-
-                if ($(this).hasClass('active')) {
-                    $('.globalMenuSp').addClass('active');
-                } else {
-                    $('.globalMenuSp').removeClass('active');
-                    }
-
-                });
-        });
-        //メニュー内を閉じておく
-        $(function() {
-            $('.globalMenuSp a[href]').click(function() {
-                $('.globalMenuSp').removeClass('active');
-            $('.hamburger').removeClass('active');
-
-            });
-        });
-    } else {
-        $('header').hide();
-        $(window).scroll(function () {
-            var pos = $('.inner').offset();
-            if ($(this).scrollTop() > pos.top) {
-                $('header').fadeIn();
-            } else {
-                $('header').fadeOut();
-            }
-        });
-    }
-    <?php endif;?>
-
 </script>

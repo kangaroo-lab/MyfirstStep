@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<metahttp-equiv="content-type" content="text/html; charset=UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="echo $description">
+<title>echo $title;</title>
+<link href="https://use.fontawesome.com/releases/v6.1.2/css/all.css" rel="stylesheet">
+
+<script src="https://cdn.jsdelivr.net/npm/@yaireo/tagify/dist/tagify.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@yaireo/tagify/dist/tagify.polyfills.min.js"></script>
+<link href="https://cdn.jsdelivr.net/npm/@yaireo/tagify/dist/tagify.css" rel="stylesheet" type="text/css" />
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<script src="https://www.gstatic.com/firebasejs/5.8.1/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/5.8.1/firebase-firestore.js"></script>
+<script src='https://www.gstatic.com/firebasejs/5.8.1/firebase-storage.js'></script>
+<script src="/js/config.js"></script>
+</head>
+<style>
+    #sumnailDiv{
+        width: 100%;
+        height: 50vh;
+    }
+    #sumnailDiv img{
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+</style>
+<body>
+    <div>
+        <div id='header'></div>
+        <div id='sumnailDiv'>
+            <img id="sumnail"src="" alt="サムネイル">
+        </div>
+        <div id='titleDiv'>
+            <p id='dateTime'></p>
+            <h1 id='title'></h1>
+        </div>
+        <div id='fill'></div>
+        <div id='footer'></div>
+    </div>
+</body>
+<script>
+    $(function(){
+      $('#header').load("component/header.html")
+      $('#footer').load("component/footer.html")
+    })
+
+    const url = new URL(location.href);
+    const params = new URLSearchParams(url.search);
+    const id = params.get('id');
+
+    const fill = document.getElementById('fill');
+    const titleTxt = document.getElementById('title');
+    const sumnail = document.getElementById('sumnail');
+    const dateTimeBox = document.getElementById('dateTime');
+
+    const db = firebase.firestore();
+    db.collection('post').doc(id)
+        .onSnapshot((doc)=>{
+            const data = doc.data();
+            titleTxt.innerText = data.title;
+            fill.innerHTML = data.post;
+            sumnail.setAttribute('src',data.sumnail);
+            dateTimeBox.innerText = data.date.toDate().toDateString()
+        })
+        .then(()=>{
+
+        })
+</script>

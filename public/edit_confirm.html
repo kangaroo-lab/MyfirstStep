@@ -1,4 +1,25 @@
-<?php include '../../component/head.php'?>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <metahttp-equiv="content-type" content="text/html; charset=UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="echo $description">
+    <title>echo $title;</title>
+    <link href="https://use.fontawesome.com/releases/v6.1.2/css/all.css" rel="stylesheet">
+
+    <script src="https://cdn.jsdelivr.net/npm/@yaireo/tagify/dist/tagify.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@yaireo/tagify/dist/tagify.polyfills.min.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/@yaireo/tagify/dist/tagify.css" rel="stylesheet" type="text/css" />
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/5.8.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/5.8.1/firebase-firestore.js"></script>
+    <script src='https://www.gstatic.com/firebasejs/5.8.1/firebase-storage.js'></script>
+    <script src="/js/config.js"></script>
+</head>
+
 <body>
 <style>
     img{
@@ -60,18 +81,15 @@
             width: 90%;
         }
     }
-
 </style>
-    <?php
-        $flag = true;
-        include '../../component/header.php';
-    ?>
+<div id="header"></div>
     <div class='container'>
         <div class='comfirmPost'>
-            <img src="<?=$_POST['sumnail_url']?>" alt="">
-            <h1><?=$_POST['title']?></h1>
-            <?=$_POST['content']?>
-            <?=$_POST['tags']?>
+            <img id="sumnail"　alt="sumnail">
+            <h1 id="title"></h1>
+            <div id="check_div">
+
+            </div>
         </div>
         <div class='buttonArea'>
             <input type="hidden" value="">
@@ -79,17 +97,33 @@
             <button id='edit' onclick="history.back()">編集</button>
         </div>
     </div>
+    <div id="footer"></div>
 </body>
+
+<script>
+    $(function(){
+      $('#header').load("../component/header.html")
+      $('#footer').load("../component/footer.html")
+    })
+</script>
+
 <script>
     const url = new URL(location.href);
     const params = new URLSearchParams(url.search);
     const id = params.get('id');
+    console.log(id)
+    const confirmTxt = params.get('content');
+    const tags = params.get('tags');
+    const title = params.get('title');
+    const sumnail = params.get('sumnail_url');
+    const write = params.get('write');
 
-    const confirmTxt = '<?=$_POST['content']?>';
-    const tags = <?=$_POST['tags']?>;
-    const title = '<?=$_POST['title']?>';
-    const sumnail = "<?=$_POST['sumnail_url']?>";
-    const write = `<?=$_POST['write']?>`;
+    const sumnail_img = document.getElementById("sumnail");
+    sumnail_img.setAttribute("src",sumnail);
+    const title_h = document.getElementById('title');
+    title_h.innerText = title;
+    const check_div = document.getElementById('check_div');
+    check_div.innerHTML = confirmTxt
 
     function putHtml(){
         // Firestoreのオブジェクト取得
@@ -104,7 +138,7 @@
                 write : write
             })
                 .then((doc) => {
-                    window.location.href = 'admin_post_complete.php'; // 通常の遷移
+                    window.location.href = 'complete.html'; // 通常の遷移
                     window.open('admin_post_complete.php', '_blank'); // 新しいタブを開き、ページを表示
                     console.log(`追加に成功しました (${doc.id})`);
                 })

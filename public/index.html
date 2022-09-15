@@ -1,89 +1,488 @@
 <!DOCTYPE html>
-<html>
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Welcome to Firebase Hosting</title>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<metahttp-equiv="content-type" content="text/html; charset=UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="echo $description">
+<title>echo $title;</title>
+<link href="https://use.fontawesome.com/releases/v6.1.2/css/all.css" rel="stylesheet">
 
-    <!-- update the version number as needed -->
-    <script defer src="/__/firebase/9.9.3/firebase-app-compat.js"></script>
-    <!-- include only the Firebase features as you need -->
-    <script defer src="/__/firebase/9.9.3/firebase-auth-compat.js"></script>
-    <script defer src="/__/firebase/9.9.3/firebase-database-compat.js"></script>
-    <script defer src="/__/firebase/9.9.3/firebase-firestore-compat.js"></script>
-    <script defer src="/__/firebase/9.9.3/firebase-functions-compat.js"></script>
-    <script defer src="/__/firebase/9.9.3/firebase-messaging-compat.js"></script>
-    <script defer src="/__/firebase/9.9.3/firebase-storage-compat.js"></script>
-    <script defer src="/__/firebase/9.9.3/firebase-analytics-compat.js"></script>
-    <script defer src="/__/firebase/9.9.3/firebase-remote-config-compat.js"></script>
-    <script defer src="/__/firebase/9.9.3/firebase-performance-compat.js"></script>
-    <!-- 
-      initialize the SDK after all desired features are loaded, set useEmulator to false
-      to avoid connecting the SDK to running emulators.
-    -->
-    <script defer src="/__/firebase/init.js?useEmulator=true"></script>
+<script src="https://cdn.jsdelivr.net/npm/@yaireo/tagify/dist/tagify.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@yaireo/tagify/dist/tagify.polyfills.min.js"></script>
+<link href="https://cdn.jsdelivr.net/npm/@yaireo/tagify/dist/tagify.css" rel="stylesheet" type="text/css" />
 
-    <style media="screen">
-      body { background: #ECEFF1; color: rgba(0,0,0,0.87); font-family: Roboto, Helvetica, Arial, sans-serif; margin: 0; padding: 0; }
-      #message { background: white; max-width: 360px; margin: 100px auto 16px; padding: 32px 24px; border-radius: 3px; }
-      #message h2 { color: #ffa100; font-weight: bold; font-size: 16px; margin: 0 0 8px; }
-      #message h1 { font-size: 22px; font-weight: 300; color: rgba(0,0,0,0.6); margin: 0 0 16px;}
-      #message p { line-height: 140%; margin: 16px 0 24px; font-size: 14px; }
-      #message a { display: block; text-align: center; background: #039be5; text-transform: uppercase; text-decoration: none; color: white; padding: 16px; border-radius: 4px; }
-      #message, #message a { box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24); }
-      #load { color: rgba(0,0,0,0.4); text-align: center; font-size: 13px; }
-      @media (max-width: 600px) {
-        body, #message { margin-top: 0; background: white; box-shadow: none; }
-        body { border-top: 16px solid #ffa100; }
-      }
-    </style>
-  </head>
-  <body>
-    <div id="message">
-      <h2>Welcome</h2>
-      <h1>Firebase Hosting Setup Complete</h1>
-      <p>You're seeing this because you've successfully setup Firebase Hosting. Now it's time to go build something extraordinary!</p>
-      <a target="_blank" href="https://firebase.google.com/docs/hosting/">Open Hosting Documentation</a>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<script src="https://www.gstatic.com/firebasejs/5.8.1/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/5.8.1/firebase-firestore.js"></script>
+<script src='https://www.gstatic.com/firebasejs/5.8.1/firebase-storage.js'></script>
+<script src="/js/config.js"></script>
+</head>
+
+<style type="text/css">
+  .container{
+    display: flex;
+    flex-direction: column;
+  }
+  .videoArea{
+    position: relative;
+    width: 100vw;
+    height: 100vh;
+    overflow: hidden;
+  }
+  .videoArea > video{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translateX(-50%) translateY(-50%);
+    min-width: 100%;
+    min-height: 100%;
+    z-index: -1;
+  }
+  .logoTitleOnVideo{
+    z-index: 5;
+    display: none;
+    /*要素の配置*/
+    position:absolute;
+    /*要素を天地中央寄せ*/
+    top: 50%;
+    left: 50%;
+    transform: translateY(-50%) translateX(-50%);
+    /*見た目の調整*/
+    color:#fff;
+    text-shadow: 0 0 15px #666;
+  }
+  .post_area_title{
+      margin: 0 auto;
+  }
+  @media screen and (min-width: 769px){
+    /* top contents */
+    .inner{
+        z-index: 1;
+        margin: 0;
+        padding-bottom: 50px;
+    }
+    .topContents{
+        margin-left: 8.5vh;
+        margin-right: 8.5vh;
+        display: flex;
+        justify-content: center;
+        flex-direction: row;
+    }
+    .topContentsRow{
+        display: flex;
+        flex-direction: row;
+    }
+
+    .topContent{
+        background-color: #fff;
+        margin-left: 2vw;
+        position: relative;
+        width: 20vw;
+        height: 25vh;
+        margin-top: 48px;
+        border-style: solid;
+        border-radius: 44px;
+        border-width: 1px;
+        border-color: lightgray;
+        text-align: center;
+        display: flex;
+        flex-direction: column;
+        box-shadow:  0 0 10px #666;
+        opacity: 0.7;
+    }
+    #topContentIcon{
+        margin-top: 25px;
+        flex:3;
+        width: auto;
+    }
+    .topContentTextArea{
+        margin-bottom: 7px;
+    }
+    .topContentTitle{
+        margin-bottom: 0;
+    }
+    .topContentSub{
+        font-size: 11px;
+    }
+
+    /* aboutUs */
+    .aboutUs{
+        background-blend-mode:lighten;
+        background:linear-gradient(to bottom, transparent 0 1%,  #fff 80%),url('img/map.jpeg'); ;
+        background-color:rgba(255,255,255,0.8);
+        background-size: cover;
+        margin-top: 30px;
+        padding-top: 10vh;
+        padding-left: 18vh;
+        padding-right: 18vh;
+        height: 80vh;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        margin-bottom: 0;
+    }
+    .aboutUsTextArea{
+        margin-top: 5vh;
+        padding-left: 34px;
+        height: 70vh;
+        width: 60vh;
+    }
+    .aboutUsTitle{
+        font-size: 5vh;
+    }
+    .post{
+        font-size: 3vh;
+        margin-bottom: 35px;
+        word-break:break-word;
+    }
+    .button01 a {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin: 0 auto;
+        padding: 1em 2em;
+        width: 25vh;
+        color: rgba(0,0,0,0.6);
+        font-size: 2vh;
+        border: 1px solid rgba(0,0,0,0.6);
+    }
+    .button01 a::after {
+        content: '';
+        width: 5px;
+        height: 5px;
+        border-top: 3px solid rgba(0,0,0,0.6);
+        border-right: 3px solid rgba(0,0,0,0.6);
+        transform: rotate(45deg);
+    }
+    .button01 a:hover {
+        color: #333333;
+        text-decoration: none;
+        background-color: rgba(255,255,255,0.8);
+    }
+    .button01 a:hover::after {
+        border-top: 3px solid rgba(0,0,0,0.6);
+        border-right: 3px solid rgba(0,0,0,0.6);
+    }
+
+    /* contents Area */
+    .post_area{
+        height: 80vh;
+        padding-bottom: 30px;
+        padding-right: 10vw;
+        padding-left: 10vw;
+    }
+    /* TypeA */
+    .typeA{
+        margin-top: 0;
+        background:linear-gradient(to top,rgba(255,255,255,0) 0, #fff 80%);
+    }
+  }
+  @media screen and (max-width: 769px){
+    /* top contents */
+    .inner{
+        z-index: 1;
+        margin: 0;
+        padding-bottom: 50px;
+    }
+    .topContents{
+        margin-top: 5px;
+        margin-left: 8.5vh;
+        margin-right: 8.5vh;
+        display: flex;
+        justify-content: space-between;
+        flex-direction: column;
+    }
+    .topContentsRow{
+        display: flex;
+        flex-direction: row;
+        justify-content: space-around;
+    }
+    .topContent{
+        background-color: #fff;
+        position: relative;
+        width: 40vw;
+        height: 20vh;
+        margin-top: 48px;
+        margin: 1vh;
+        border-style: solid;
+        border-radius: 44px;
+        border-width: 1px;
+        border-color: lightgray;
+        text-align: center;
+        display: flex;
+        flex-direction: column;
+        box-shadow:  0 0 10px #666;
+        opacity: 0.7;
+    }
+    #topContentIcon{
+        margin-top: 25px;
+        flex:3;
+        width: auto;
+    }
+    .topContentTextArea{
+        margin-bottom: 7px;
+    }
+    .topContentTitle{
+        margin: 0;
+        margin-bottom: 0;
+    }
+    .topContentSub{
+        margin: 0;
+        font-size: 11px;
+    }
+    a{
+        text-align: center;
+        color: rgba(0,0,0,0.4);
+        text-decoration: none;
+    }
+    a :hover{
+        color: rgba(0,0,0,0.9);
+        text-decoration: none;
+    }
+
+    /* aboutUs */
+    .aboutUs{
+        background:linear-gradient(to bottom, transparent 0 1%,  #fff 80%),url('img/map.jpeg'); ;
+        background-color:rgba(255,255,255,0.8);
+        background-blend-mode:lighten;
+        background-size: cover;
+        margin-top: 30px;
+        padding-left: 18vh;
+        padding-right: 18vh;
+        width: auto;
+        height: 50vw;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+    }
+    .aboutUsTextArea{
+        padding-left: 10px;
+        height: 30vh;
+        width: 10vh;
+    }
+    .aboutUsTitle{
+        font-size: 4.375vw;
+        margin: 2vw auto;
+    }
+    .post{
+        font-size: 2.5vw;
+        margin-bottom: 35px;
+        margin: 2vw auto;
+    }
+    .button01 a {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin: 0 auto;
+        padding: 1em 2em;
+        width: 20vh;
+        color: rgba(0,0,0,0.6);
+        font-size: 2vh;
+        border: 1px solid rgba(0,0,0,0.6);
+    }
+    .button01 a::after {
+        content: '';
+        width: 5px;
+        height: 5px;
+        border-top: 3px solid rgba(0,0,0,0.6);
+        border-right: 3px solid rgba(0,0,0,0.6);
+        transform: rotate(45deg);
+    }
+    .button01 a:hover {
+        color: #333333;
+        text-decoration: none;
+        background-color: rgba(255,255,255,0.8);
+    }
+    .button01 a:hover::after {
+        border-top: 3px solid rgba(0,0,0,0.6);
+        border-right: 3px solid rgba(0,0,0,0.6);
+    }
+    .aboutUsImg{
+        align-self: center;
+    }
+
+    /* contents Area */
+    .post_area{
+        padding-top:4vh;
+        padding-bottom: 30px;
+        width: 100%;
+    }
+    /* TypeA */
+    .typeA{
+        margin-top: 0;
+        background:linear-gradient(to top,rgba(255,255,255,0) 0, #fff 40%);
+    }
+  }
+</style>
+
+<body>
+<div class='container'>
+<div id="header"></div>
+
+<div class='homeVideoArea'>
+  <h1 class='logoTitleOnVideo'>すてっぷ</h1>
+  <div class='videoArea'>
+    <video id='video'poster='../img/sky.jpeg'webkit-playsinline playsinline muted autoplay loop>
+      <source src='../img/airplane.mp4' type="video/mp4">
+    </video>
+  </div>
+</div>
+
+<div class='inner'>
+  <!-- トップのコンテンツカラム -->
+  <div class='topContents'>
+    <div class = 'topContentsRow'>
+      <a href="list.php?category=trip">
+          <div class='topContent'>
+              <i id='topContentIcon'class='fa-solid fa-person-walking-luggage fa-4x'></i>
+              <div class='topContentTextArea'>
+                  <p class='topContentTitle'>旅行</p>
+                  <p class='topContentSub'>trip</p>
+              </div>
+          </div>
+      </a>
+      <a href="list.php?category=trip">
+          <div class='topContent'>
+              <i id='topContentIcon'class='fa-solid fa-person-walking-luggage fa-4x'></i>
+              <div class='topContentTextArea'>
+                  <p class='topContentTitle'>留学</p>
+                  <p class='topContentSub'>study</p>
+              </div>
+          </div>
+      </a>
     </div>
-    <p id="load">Firebase SDK Loading&hellip;</p>
+    <div class = 'topContentsRow'>
+      <a href="list.php?category=trip">
+          <div class='topContent'>
+              <i id='topContentIcon'class='fa-solid fa-person-walking-luggage fa-4x'></i>
+              <div class='topContentTextArea'>
+                  <p class='topContentTitle'>心理テスト</p>
+                  <p class='topContentSub'>test</p>
+              </div>
+          </div>
+      </a>
+      <a href="list.php?category=trip">
+          <div class='topContent'>
+              <i id='topContentIcon'class='fa-solid fa-person-walking-luggage fa-4x'></i>
+              <div class='topContentTextArea'>
+                  <p class='topContentTitle'>豆知識</p>
+                  <p class='topContentSub'>trivia</p>
+              </div>
+          </div>
+      </a>
+    </div>
+  </div>
 
-    <script>
-      document.addEventListener('DOMContentLoaded', function() {
-        const loadEl = document.querySelector('#load');
-        // // 🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥
-        // // The Firebase SDK is initialized and available here!
-        //
-        // firebase.auth().onAuthStateChanged(user => { });
-        // firebase.database().ref('/path/to/ref').on('value', snapshot => { });
-        // firebase.firestore().doc('/foo/bar').get().then(() => { });
-        // firebase.functions().httpsCallable('yourFunction')().then(() => { });
-        // firebase.messaging().requestPermission().then(() => { });
-        // firebase.storage().ref('/path/to/ref').getDownloadURL().then(() => { });
-        // firebase.analytics(); // call to activate
-        // firebase.analytics().logEvent('tutorial_completed');
-        // firebase.performance(); // call to activate
-        //
-        // // 🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥
+  <div class='aboutUs'>
+    <div class='aboutUsTextArea'>
+      <h2 class='aboutUsTitle'>About us</h2>
+      <div class='postView'>
+        <p class='post'>$text</p>
+      </div>
+      <div class='button01'>
+        <a href="aboutUs.php">私たちについて</a>
+      </div>
+    </div>
+  </div>
 
-        try {
-          let app = firebase.app();
-          let features = [
-            'auth', 
-            'database', 
-            'firestore',
-            'functions',
-            'messaging', 
-            'storage', 
-            'analytics', 
-            'remoteConfig',
-            'performance',
-          ].filter(feature => typeof app[feature] === 'function');
-          loadEl.textContent = `Firebase SDK loaded with ${features.join(', ')}`;
-        } catch (e) {
-          console.error(e);
-          loadEl.textContent = 'Error loading the Firebase SDK, check the console.';
-        }
+      <!--  表示するテーブル -->
+      <div class='post_area typeA'>
+        <h3 class='post_area_title'>Title</h3>
+        <div class='typeA_colomn'>
+            <div class='typeA_row'>
+                <div class='typeA_contents'>
+                    <img src="" alt="">
+                </div>
+            </div>
+        </div>
+</div>
+<div class='post_area typeB'>
+        <h3 class='post_area_title'>Title</h3>
+        <div class='typeB_colomn'>
+            <div class='typeB_row'id='typeB_row'>
+                <div class='typeB_contents'></div>
+            </div>
+        </div>
+</div>
+<div class='post_area typeC'>
+        <h3 class='post_area_title'>Title</h3>
+        <div class='typeC_colomn'>
+            <div class='typeC_row'>
+                <div class='typeC_contents'></div>
+            </div>
+        </div>
+</div>
+<div class='post_area typeD'>
+        <h3 class='post_area_title'>Title</h3>
+        <div class='typeD_colomn'>
+            <div class='typeD_row'>
+                <div class='typeD_contents'></div>
+            </div>
+        </div>
+</div>
+
+</div>
+
+<div id="footer"></div>
+</div>
+</div>
+</body>
+<script>
+  $('.logoTitleOnVideo').fadeIn(3000);
+  $(document).ready(function(){
+      $('.recomendContentTypeA').hover(function(){
+          $(this).stop(true, true).animate({ top:-2,opacity:1}, 150);
+      }, function() {
+          $(this).stop(true, true).animate({ top: 0,opacity:0.5}, 150);
+  });
+  });
+
+  $(window).scroll(function(){
+      var pos = $('.topContents').offset();
+      if($(this).scrollTop() > pos.top ) {
+          $('.aboutUsTextArea').fadeIn();
+      }else{
+          $('.aboutUsTextArea').fadeOut();
+      }
+  });
+
+  $(document).ready(function(){
+      $('.topContent').hover(function(){
+          $(this).stop(true, true).animate({ top:-2,opacity:1}, 150);
+      }, function() {
+          $(this).stop(true, true).animate({ top: 0,opacity:0.7}, 150);
       });
-    </script>
-  </body>
+  });
+// Firestoreのオブジェクト取得
+  const db = firebase.firestore();
+  const ref = db.collection('post');
+  ref.onSnapshot((snapShot)=>{
+      snapShot.forEach((doc)=>{
+          const type = 'typeB';
+          putLink(type,doc);
+      })
+  })
+
+  function putLink(type,doc){
+          const data = doc.data();
+          const link = document.createElement('a');
+          link.setAttribute('href','post.html?id='+doc.id);
+          const divB = document.createElement('div');
+          divB.setAttribute('class',type+'_contents');
+          const postArea = document.getElementById(type+'_row');
+          divB.innerText = data.title;
+          link.appendChild(divB);
+          postArea.appendChild(link);
+  }
+
+// このあたりにこれから掲載するサンプルコードなどを記述。
+</script>
+<script>
+  $(function(){
+    $('#header').load("component/header_hide.html")
+    $('#footer').load("component/footer.html")
+  })
+</script>
 </html>
