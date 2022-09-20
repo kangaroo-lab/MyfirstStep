@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>管理者登録</title>
+</head>
+<style>
+    .main-wrap{
+        display: flex;
+        flex-direction: column;
+        max-width: 300px;
+        padding: 10px;
+    }
+    .input-wrap{
+        padding-bottom: 10px;
+        display: flex;
+        align-items: center;
+    }
+    .input-wrap input{
+        margin-left: 10px;
+
+    }
+    .button{
+        display: flex;
+        justify-content: center;
+        width: 100%;
+    }
+    .button button{
+        padding:10px 20px;
+        cursor: pointer;
+    }
+</style>
+<body>
+    <div class="main-wrap">
+        <div class="input-wrap">
+          <label>ユーザーID<input id="search-id" type="email"></label>
+        </div>
+        <div class="input-wrap">
+          <label>パスワード<input id="search-password" type="password"></label>
+        </div>
+        <div class="button">
+          <button id='login_button'>サインイン</button>
+        </div>
+      </div>
+</body>
+<script>
+    const button = document.getElementById('login_button')
+    //ログインボタン押下で作動
+    button.addEventListener('click', () =>{
+        const searchId = document.querySelector('#search-id').value;
+        const searchPassword = document.querySelector('#search-password').value;
+        findUser(searchId,searchPassword);
+    });
+
+    /*** 登録しているユーザーを検索する */
+    function findUser(searchId,searchPassword) {
+        console.log(searchId, searchPassword)
+    // 該当データを取得する
+
+    // 該当データが存在しなかったら、「該当者なし」と表示して終了
+
+    // 該当データの名前を表示する
+
+    //トップ画面へ遷移
+    }
+</script>
+</html>

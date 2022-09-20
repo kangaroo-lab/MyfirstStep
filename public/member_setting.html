@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content='管理者用ページ'>
+<title>管理者ページ</title>
+<link href="https://use.fontawesome.com/releases/v6.1.2/css/all.css" rel="stylesheet">
+
+<script src="https://cdn.jsdelivr.net/npm/@yaireo/tagify/dist/tagify.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@yaireo/tagify/dist/tagify.polyfills.min.js"></script>
+<link href="https://cdn.jsdelivr.net/npm/@yaireo/tagify/dist/tagify.css" rel="stylesheet" type="text/css" />
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"></script>
+<script src='https://www.gstatic.com/firebasejs/8.10.0/firebase-storage.js'></script>
+<script src='https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js'></script>
+<script src="js/config.js"></script>
+</head>
+<style>
+    #input_area{
+        display: flex;
+        justify-content: center;
+        flex-direction: column;
+        margin:20px 100px;
+    }
+    #input_area input[type='text']{
+        width: 300px;
+    }
+    #input_area button{
+        width: 100px;
+        align-self: center;
+        height: 50px;
+        background-color: beige;
+    }
+    #input_area button:hover{
+        width: 100px;
+        align-self: center;
+        height: 50px;
+        background-color: #fff;
+    }
+    #input_area #s_prof{
+        height: 300px;
+    }
+    #input_area #l_prof{
+        height: 800px;
+    }
+</style>
+<body>
+    <div>
+        <div id="header"></div>
+            <div id="input_area">
+                <label for="img">自身の写真</label>
+                <input id="img"type="file"name='img'>
+            </div>
+            <div id="input_area">
+                <label for="name">ニックネーム ※ローマ字登録推奨</label>
+                <input id="name"type="text"name='name'>
+            </div>
+            <div id="input_area">
+                <label for="short_profile">プロフィール(short)</label>
+                <textarea id="s_prof"type="text"name='short_profile'></textarea>
+            </div>
+            <div id="input_area">
+                <label for="long_profile">プロフィール(long)</label>
+                <textarea id="l_prof"type="text"name='long_profile'></textarea>
+            </div>
+            <div id="input_area">
+                <button onclick="ttt()">決定</button>
+                <p id="text"></p>
+            </div>
+        <div id="footer"></div>
+    </div>
+</body>
+
+<script>
+    function ttt(){
+        const input_img = document.getElementById('img');
+        const name_input = document.getElementById('name');
+        const s_prof_input = document.getElementById('s_prof');
+        const l_prof_input = document.getElementById('l_prof');
+
+        const file = input_img.files[0];
+        const name = name_input.value;
+        const s_prof = s_prof_input.value;
+        const l_prof = l_prof_input.value;
+
+        if(file == null || name == null || s_prof == null || l_prof == null){
+            document.getElementById('text').innerHTML = '要素が足りません！'
+        }
+        // imgToStore(input_img)
+        firebase.auth().onAuthStateChanged((user) => {
+            if (user) {
+                console.log(user.uid)
+            }
+            else{
+                console.log('NULL')
+            }
+        });
+    }
+
+    function imgToStore(){
+
+    }
+
+    $(function(){
+      $('#header').load("component/header.html")
+      $('#footer').load("component/footer.html")
+    })
+</script>

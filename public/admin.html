@@ -14,9 +14,10 @@
 <link href="https://cdn.jsdelivr.net/npm/@yaireo/tagify/dist/tagify.css" rel="stylesheet" type="text/css" />
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-<script src="https://www.gstatic.com/firebasejs/5.8.1/firebase-app.js"></script>
-<script src="https://www.gstatic.com/firebasejs/5.8.1/firebase-firestore.js"></script>
-<script src='https://www.gstatic.com/firebasejs/5.8.1/firebase-storage.js'></script>
+<script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"></script>
+<script src='https://www.gstatic.com/firebasejs/8.10.0/firebase-storage.js'></script>
+<script src='https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js'></script>
 <script src="js/config.js"></script>
 </head>
 
@@ -31,6 +32,30 @@
 </body>
 
 <script>
+    firebase.auth().onAuthStateChanged((user) => {
+        if (user) {
+            // User is signed in, see docs for a list of available properties
+            // https://firebase.google.com/docs/reference/js/firebase.User
+            var uid = user.uid;
+            // 👈 Your code that needs an active user goes here
+            const db = firebase.firestore();
+            const ref = db.collection('staff').doc(uid);
+            ref.get().then((doc)=>{
+                if(doc.exists){
+                    console.log('EXISTS')
+                }else{
+                    console.log('NO SUCH')
+                    window.location.href='member_setting.html'
+                }
+            })
+            .catch((e)=>{
+                console.log(e.message)
+            })
+        } else {
+            // User is signed out
+            // ...
+        }
+    });
     $(function(){
       $('#header').load("component/header.html")
       $('#footer').load("component/footer.html")
