@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="世界各地にいるスタッフが、全世界の情報をお届けするメディアです。 2022年エストニアで設立されました。">
+<title>ふぁーすとすてっぷ -member</title>
+<link href="https://use.fontawesome.com/releases/v6.1.2/css/all.css" rel="stylesheet">
+
+<script src="https://cdn.jsdelivr.net/npm/@yaireo/tagify/dist/tagify.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@yaireo/tagify/dist/tagify.polyfills.min.js"></script>
+<link href="https://cdn.jsdelivr.net/npm/@yaireo/tagify/dist/tagify.css" rel="stylesheet" type="text/css" />
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<script src="https://www.gstatic.com/firebasejs/5.8.1/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/5.8.1/firebase-firestore.js"></script>
+<script src='https://www.gstatic.com/firebasejs/5.8.1/firebase-storage.js'></script>
+<script src="js/config.js"></script>
+</head>
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=Amatic+SC&display=swap');
+    body #fill{
+        background-color: white;
+    }
+    @media screen and (min-width: 769px){
+        #content #member_post{
+            border: 2px solid #fffae1;
+            margin: 30px 200px;
+            margin-bottom: 100px;
+            padding: 30px 20px;
+            text-align: center;
+            align-items: center;
+            color: rgb(99, 99, 99);
+        }
+        #member_post #member_img{
+            width: 100%;
+            height: 100%;
+            align-self: center;
+        }
+        #member_img img{
+            width: 25vw;
+            height: 25vw;
+            border-radius: 100%;
+        }
+        #member_name h1{
+            font-family: 'Amatic SC', cursive;
+            font-size: 100px;
+        }
+        #member_profile h3{
+            font-weight: lighter;
+        }
+    }
+    @media screen and (max-width: 769px){}
+</style>
+<body>
+    <div id="fill">
+        <div id="header"></div>
+        <div id="content">
+            <div id="member_post">
+                <div id="member_img">
+                    <img src="img/すてっぷ仮.jpg" alt="">
+                </div>
+                <div id="member_name">
+                    <h1>HIYORI</h1>
+                </div>
+                <div id="member_profile">
+                    <h3>
+                        17歳の時に初めての留学に行ってから<br>
+                        外国の魅力に惹かれ、<br>
+                        大学時代よりバックバッカーとして<br>
+                        約40カ国を旅している。<br>
+                        <br>
+                        コロナ禍で海外に行けなくなり、<br>
+                        1年間幼稚園教諭として働き、<br>
+                        <br>
+                        2022年に退職、 4月に会社の立ち上げ準備を始め、<br>
+                        現在マレーシアなど世界中を旅しながら<br>
+                        会社を経営している。
+                        <br>
+                        世界中の子どもたちに会いに行くのが好きで、<br>
+                        格安旅や一人旅を主に専攻とする旅スタイルの持ち主。<br>
+                        <br>
+                    </h3>
+                </div>
+                <div id="member_sns">
+                    <h2>Instagram : @n_hiyo4383</h2>
+                </div>
+            </div>
+        </div>
+        <div id="footer"></div>
+    </div>
+</body>
+<script>
+    $(function(){
+        $('#header').load("component/header.html")
+        $('#footer').load("component/footer.html")
+    })
+</script>
+</html>
