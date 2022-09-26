@@ -130,6 +130,7 @@
         // Firestoreのオブジェクト取得
         var db = firebase.firestore();
             db.collection("post").add({
+                type : 1,
                 name : 'user',
                 date : new Date(),
                 title : title,

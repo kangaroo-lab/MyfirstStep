@@ -147,15 +147,31 @@
 </style>
 </head>
 <script>
+    const ref = firebase.firestore().collection('post');
+
     function submit_post(){
         const write_html = document.getElementById('post_write_area_input')
         const write_text = write_html.innerHTML
         const submit_html = document.getElementById('post_confirm_area_watch')
         const submit_text = submit_html.innerHTML
-        const send_content = document.getElementById('submit_content')
-        const write_content = document.getElementById('write_content')
-        write_content.setAttribute('value',write_text)
-        send_content.setAttribute('value',submit_text)
+        const s_title = document.querySelector('input[name="title"]').value;
+        const s_sumnail = document.querySelector('input[name="sumnail_url"]').value;
+        const s_tags = document.querySelector('input[name="tags"]').value;
+        const write_content = document.getElementById('write_content').innerText;
+        ref.add({
+                type : 1,
+                name : 'user',
+                date : new Date(),
+                title : s_title,
+                sumnail : s_sumnail,
+                tags : s_tags,
+                post : submit_text,
+                write : write_text
+            }).then(()=>{
+                console.log('完了')
+            }).catch(()=>{
+                alert('失敗')
+            })
     }
 </script>
 <body>

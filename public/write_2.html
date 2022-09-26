@@ -186,6 +186,7 @@ function click(){
     editor.save().then((saveData)=>{
         const ref = firebase.firestore().collection('post');
         ref.add({
+            type : 2,
             post : saveData,
             sumnail : sumnail_url,
             title : title,
