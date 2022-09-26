@@ -27,6 +27,7 @@
         <div>
             <a href="write.html">記事を書く</a>
             <a href="edit_index.html">記事を編集する</a>
+            <a href="member_setting.html">プロフィールを編集する</a>
         </div>
     </div>
 </body>
@@ -39,19 +40,22 @@
             var uid = user.uid;
             // 👈 Your code that needs an active user goes here
             const db = firebase.firestore();
-            const ref = db.collection('staff').doc(uid);
-            ref.get().then((doc)=>{
-                if(doc.exists){
-                    console.log('EXISTS')
-                }else{
-                    console.log('NO SUCH')
-                    window.location.href='member_setting.html'
-                }
+            const ref = db.collection('user').doc(uid).collection('info');
+            ref.get().then((query)=>{
+                query.forEach((doc)=>{
+                    if(doc.exists){
+                        console.log("Document data:", doc.data());
+                    } else {
+                        // doc.data() will be undefined in this case
+                        console.log("No such document!");
+                    }
+                })
             })
             .catch((e)=>{
                 console.log(e.message)
             })
         } else {
+            window.location.href='login.html'
             // User is signed out
             // ...
         }

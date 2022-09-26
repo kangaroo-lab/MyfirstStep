@@ -61,6 +61,10 @@
                 <input id="name"type="text"name='name'>
             </div>
             <div id="input_area">
+                <label for="id">インスタグラム id</label>
+                <input id="instagram"type="text"name='instagram'>
+            </div>
+            <div id="input_area">
                 <label for="short_profile">プロフィール(short)</label>
                 <textarea id="s_prof"type="text"name='short_profile'></textarea>
             </div>
@@ -77,32 +81,65 @@
 </body>
 
 <script>
+    let uid = '';
+    firebase.auth().onAuthStateChanged((user) => {
+        if (user) {
+            // console.log(user.uid)
+            uid = user.uid
+        }
+        else{
+            window.location.href('login.html')
+            console.log('NULL')
+        }
+    });
+
     function ttt(){
         const input_img = document.getElementById('img');
         const name_input = document.getElementById('name');
         const s_prof_input = document.getElementById('s_prof');
         const l_prof_input = document.getElementById('l_prof');
+        const sns_input = document.getElementById('instagram')
 
         const file = input_img.files[0];
         const name = name_input.value;
         const s_prof = s_prof_input.value;
         const l_prof = l_prof_input.value;
+        const snsId = sns_input.value;
 
         if(file == null || name == null || s_prof == null || l_prof == null){
             document.getElementById('text').innerHTML = '要素が足りません！'
-        }
-        // imgToStore(input_img)
-        firebase.auth().onAuthStateChanged((user) => {
-            if (user) {
-                console.log(user.uid)
-            }
-            else{
-                console.log('NULL')
-            }
-        });
-    }
+        }else{
+            const db = firebase.firestore();
+            const storage = firebase.storage();
+            const docRef = db.collection('user/'+uid+'/info');
+            const storageRef = storage.ref('user/'+uid);
+            storageRef.put(file).then(()=>{
+            storageRef.getDownloadURL()
+                .then((url)=>{
+                    docRef.add({
+                        type : 'staff',
+                        open :false,
+                        name : name,
+                        s_prof : s_prof,
+                        l_prof : l_prof,
+                        url : url,
+                        sns : snsId
+                    })
+                    .then(()=>{
+                        window.location.href='admin.html';
+                    })
+                    .catch((e)=>{
+                        alert('データを追加できませんでした。\n'+e.message)
+                    })
+                })
+                .catch((e)=>{
+                    alert('写真を追加できませんでした。\n'+e.message)
+                });
+            });
+        };
+    };
 
-    function imgToStore(){
+    async function imgToStore(){
 
     }
 

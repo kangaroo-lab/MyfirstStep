@@ -1,89 +1,64 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>管理者画面ログイン</title>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>管理者ログイン</title>
+  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"></script>
+  <script src='https://www.gstatic.com/firebasejs/8.10.0/firebase-storage.js'></script>
+  <script src='https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js'></script>
+  <script src="js/config.js"></script>
 
-    <link href="https://use.fontawesome.com/releases/v6.1.2/css/all.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
 
-    <script src="https://cdn.jsdelivr.net/npm/@yaireo/tagify/dist/tagify.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@yaireo/tagify/dist/tagify.polyfills.min.js"></script>
-    <link href="https://cdn.jsdelivr.net/npm/@yaireo/tagify/dist/tagify.css" rel="stylesheet" type="text/css" />
-
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"></script>
-    <script src='https://www.gstatic.com/firebasejs/8.10.0/firebase-storage.js'></script>
-    <script src='https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js'></script>
-    <script src="js/config.js"></script>
 </head>
-<style>
-    .main-wrap{
-        display: flex;
-        flex-direction: column;
-        max-width: 300px;
-        padding: 10px;
-    }
-    .input-wrap{
-        padding-bottom: 10px;
-        display: flex;
-        align-items: center;
-    }
-    .input-wrap input{
-        margin-left: 10px;
-
-    }
-    .button{
-        display: flex;
-        justify-content: center;
-        width: 100%;
-    }
-    .button button{
-        padding:10px 20px;
-        cursor: pointer;
-    }
-</style>
 <body>
-    <div class="main-wrap">
-        <div class="input-wrap">
-          <label>ユーザーID<input id="search-id" type="email"></label>
+<header></header>
+<div id='main' style="display: flex;flex-direction: row;justify-content: center;">
+    <div id='main_card' style="width: 500px;text-align: center;margin-top: 100px;padding:50px 0 20px 0;"class="card">
+        <div id='title'>
+            <h3>ログイン</h3>
         </div>
-        <div class="input-wrap">
-          <label>パスワード<input id="search-password" type="password"></label>
+        <div id='mail_input'>
+            <input id="email"type="email"placeholder='email'style="width:60%;margin:30px 0;">
         </div>
-        <div class="button">
-          <button id='login_button'>ログイン</button>
+        <div id='password_input'>
+            <input id="password"type="password"placeholder='password'style="width:60%;margin:0 0 30px 0;">
         </div>
-      </div>
+        <div id='button_area'>
+            <button id="login_button"class="btn btn-outline-secondary"style="width:60%;margin:20px 0 20px 0;">ログイン</button>
+        </div>
+    </div>
+</div>
+<footer></footer>
 </body>
 <script>
-    const button = document.getElementById('login_button')
-    //ログインボタン押下で作動
+    // ログインのボタンクリック
+    const button = document.getElementById('login_button');
     button.addEventListener('click', () =>{
-        const searchId = document.querySelector('#search-id').value;
-        const searchPassword = document.querySelector('#search-password').value;
+        const searchId = document.querySelector('#email').value;
+        const searchPassword = document.querySelector('#password').value;
         findUser(searchId,searchPassword);
     });
-    /*** 登録しているユーザーを検索する */
-    function findUser(searchId,searchPassword) {
-    // 該当データを取得する
-    firebase.auth().signInWithEmailAndPassword(searchId, searchPassword)
-        .then((userCredential) => {
-            // Signed in
-            var user = userCredential.user;
-            console.log(user.uid)
-            // ...
-            window.location.href = 'admin.html?id='+user.uid;
-        })
-        .catch((error) => {
-            var errorCode = error.code;
-            var errorMessage = error.message;
-            alert(errorMessage)
-        });
 
-    //トップ画面へ遷移
+    // ユーザーログイン
+    function findUser(searchId,searchPassword) {
+        firebase.auth().signInWithEmailAndPassword(searchId, searchPassword)
+            .then((userCredential)=>{
+                window.location.href = "admin.html?id="+userCredential.uid;
+            })
+            .catch((error)=>{
+                alert(error.message);
+            })
     }
+    $(function(){
+        $('header').load("components/header.html")
+    $('footer').load("components/footer.html")
+    })
+
 </script>
 </html>

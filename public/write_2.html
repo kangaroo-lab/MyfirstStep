@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/@editorjs/editorjs@latest"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@editorjs/header@latest"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@editorjs/list@latest"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@editorjs/image@2.3.0"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@editorjs/table@latest"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@editorjs/embed@latest"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@editorjs/link@latest"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@editorjs/delimiter@latest"></script>
+    <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
+
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"></script>
+    <script src='https://www.gstatic.com/firebasejs/8.10.0/firebase-storage.js'></script>
+    <script src='https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js'></script>
+    <script src="js/config.js"></script>
+
+
+    <script src="https://cdn.jsdelivr.net/npm/@yaireo/tagify/dist/tagify.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@yaireo/tagify/dist/tagify.polyfills.min.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/@yaireo/tagify/dist/tagify.css" rel="stylesheet" type="text/css" />
+
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home</title>
+</head>
+<style>
+    #editorjs{
+        margin-top: 30px;
+    }
+    label > input[type="file"] {
+        display:none; /* アップロードボタンのスタイルを無効にする */
+        width: 100%;
+    }
+    label {
+        width: 100%;
+    }
+    input[name="title"] {
+        width: 100%;
+        margin-top: 20px;
+        border: none;
+        margin-left: 10px;
+        background-color: transparent;
+    }
+    #button_area{
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+    }
+    button{
+        width: 90%;
+    }
+    .tagify{
+        border:none;
+        margin-top: 20px;
+    }
+    #fillTextArea{
+        background-color: white;
+        margin: 0 350px 20px 350px;
+        padding-bottom: 70px;
+    }
+</style>
+<body>
+<div id="header"></div>
+<div id="fillTextArea">
+　<div id="header-input" class="ce-block__content">
+    <label class="btn btn-outline-secondary" id="sumnail_label">
+        サムネイルを選択してください
+        <input type="file" name="sumnail">
+    </label>
+    <input name='tags'class='ce-paragraph cdx-block'placeholder="ハッシュタグ(最大５個まで)" id="tag_input" value="" >
+    <input type="text"name="title"class="ce-paragraph cdx-block"placeholder='タイトルを決めてください'>
+ </div>
+  <div id="editorjs"></div>
+  <div id="button_area" class="ce-block__content">
+    <button type="button"id='save' class="btn btn-outline-secondary ">完了</button>
+  </div>
+</div>
+<footer></footer>
+<script>
+$(function(){
+    $('#header').load("component/header.html");
+})
+let uid = ''
+firebase.auth().onAuthStateChanged((user)=>{
+    if(user){
+        uid = user.uid
+    }else{
+        window.location.href = 'login.html'
+    }
+})
+var input = document.querySelector('input[name=tags]'),
+    // init Tagify script on the above inputs
+    tagify = new Tagify(input,{
+        whitelist: [],
+        maxTags: 5,
+        dropdown: {
+            maxItems: 20,           // <- mixumum allowed rendered suggestions
+            classname: "tags-look", // <- custom classname for this dropdown, so it could be targeted
+            enabled: 0,             // <- show suggestions on focus
+            closeOnSelect: false    // <- do not hide the suggestions dropdown once an item has been selected
+        }
+    });
+
+
+const sumnail_input = document.querySelector('input[name="sumnail"]')
+const title_input = document.querySelector('input[name="title"]')
+const ImageTool = window.ImageTool;
+
+const editor = new EditorJS({
+    holder : 'editorjs',
+    placeholder: '記事の内容を記入してください',
+    tools: {
+        header: {
+            class: Header
+        },
+        list: {
+            class: List,
+            inlineToolbar: true
+        },
+        table: {
+            class: Table,
+            inlineToolbar: true
+        },
+        image: {
+            class: ImageTool,
+            config: {
+                uploader: {
+                    async uploadByFile(file){
+                        const storageRef = firebase.storage().ref('article/'+file.name);
+                        var uploadTask = await storageRef.put(file);
+                        console.log("Uploaded successfully!", uploadTask);
+                        const downloadURL = await uploadTask.ref.getDownloadURL();
+                        console.log(downloadURL);
+                        return {
+                            success: 1,
+                            file: {
+                                url: downloadURL
+                            }
+                        }
+
+                    },
+                }
+            }
+            // class: SimpleImage
+        },
+        embed: {
+            class: Embed,
+            config: {
+                services: {
+                youtube: true,
+                coub: true
+                }
+            }
+        },
+        delimiter: Delimiter,
+    },
+    autofocus: true
+});
+
+const save = document.getElementById('save');
+save.addEventListener('click',click)
+const header_input = document.getElementById('header-input')
+const sumnail_label = document.getElementById('sumnail_label');
+
+sumnail_input.addEventListener('change',(e) => {
+    const file = e.target.files[0];
+    imagePut(file)
+        .then((url)=>{
+            const sumnail = document.createElement('img');
+            sumnail.setAttribute('src',url);
+            sumnail.setAttribute('id','sumnail')
+            header_input.replaceChild(sumnail,sumnail_label)
+        })
+})
+
+function click(){
+    const sumnail_url = document.getElementById('sumnail').getAttribute('src');
+    const title = title_input.value;
+    const tags = input.value;
+    editor.save().then((saveData)=>{
+        const ref = firebase.firestore().collection('post');
+        ref.add({
+            post : saveData,
+            sumnail : sumnail_url,
+            title : title,
+            tags : tags,
+            user : uid
+        }).then(()=>{
+            window.location.href = 'index.html'
+        })
+    })
+}
+
+async function imagePut(file){
+    const storageRef = firebase.storage().ref('sumnail/'+file.name);
+    var uploadTask = await storageRef.put(file);
+    const url = await uploadTask.ref.getDownloadURL();
+    return url
+}
+</script>
+</body>
+
+</html>

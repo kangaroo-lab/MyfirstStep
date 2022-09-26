@@ -207,6 +207,16 @@
 </div>
 </body>
 <script>
+    const db = firebase.firestore();
+    const ref = db.collection('user');
+    ref.get().then((query)=>{
+        query.forEach((doc)=>{
+            console.log('aaa')
+            console.log(doc.id)
+        })
+    })
+</script>
+<script>
 $(function(){
     $('#header').load("component/header.html")
     $('#footer').load("component/footer.html")
