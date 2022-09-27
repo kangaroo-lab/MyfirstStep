@@ -64,13 +64,71 @@
     db.collection('post').doc(id)
         .onSnapshot((doc)=>{
             const data = doc.data();
-            titleTxt.innerText = data.title;
-            $('title').html(data.title);
-            fill.innerHTML = data.post;
-            const text = fill.innerText;
-            console.log(text);
-            document.querySelector('meta[name="description"]').setAttribute("content",text.replace(/\s+/g, ''));
-            sumnail.setAttribute('src',data.sumnail);
-            dateTimeBox.innerText = data.date.toDate().toDateString()
+            if(data.type==1){
+                titleTxt.innerText = data.title;
+                $('title').html(data.title);
+                fill.innerHTML = data.post;
+                const text = fill.innerText;
+                console.log(text);
+                document.querySelector('meta[name="description"]').setAttribute("content",text.replace(/\s+/g, ''));
+                sumnail.setAttribute('src',data.sumnail);
+                dateTimeBox.innerText = data.date.toDate().toDateString()
+            }else{
+                sumnail.setAttribute('src',data.sumnail);
+                dateTimeBox.innerText = new Date(data.post.time).toDateString();
+                titleTxt.innerText = data.title;
+                $('title').html(data.title);
+                const paras = putText(data.post.blocks);
+                console.log(paras)
+                paras.forEach(post => {
+                    fill.appendChild(post)
+                })
+                const text = fill.innerText;
+                document.querySelector('meta[name="description"]').setAttribute("content",text.replace(/\s+/g, ''));
+            }
         })
+
+    function putText(text){
+        const result = []
+        text.forEach((doc)=>{
+        let content;
+        switch(doc.type){
+            case "header":
+                content = document.createElement('h'+doc.data.level);
+                content.setAttribute('class','post-text')
+                content.innerText = doc.data.text;
+                result.push(content);
+                break
+            case "paragraph":
+                content = document.createElement('p');
+                content.setAttribute('class','post-text')
+                content.innerText = doc.data.text;
+                result.push(content)
+                break;
+            case "image":
+                content = document.createElement('img')
+                content.setAttribute('src',doc.data.file.url)
+                content.setAttribute('alt',doc.data.caption)
+                result.push(content)
+                break;
+            case "list":
+                content = document.createElement('ul');
+                for(item in doc.type.items){
+                    const li = document.createElement('li');
+                    content.appendChild(li)
+                }
+                result.push(content)
+                break;
+            case  "delimiter":
+                result.push(content)
+                break;
+            case "table":
+                result.push(content)
+                break;
+            default:arguments
+                break;
+        }
+        })
+        return result
+    }
 </script>
