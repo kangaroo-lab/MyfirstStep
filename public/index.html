@@ -12,7 +12,8 @@
 <script src="https://cdn.jsdelivr.net/npm/@yaireo/tagify/dist/tagify.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@yaireo/tagify/dist/tagify.polyfills.min.js"></script>
 <link href="https://cdn.jsdelivr.net/npm/@yaireo/tagify/dist/tagify.css" rel="stylesheet" type="text/css" />
-
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Josefin+Sans&display=swap" type="text/css">
+<link href="http://fonts.cdnfonts.com/css/the-crown" rel="stylesheet">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
 <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"></script>
@@ -319,9 +320,39 @@
         background:linear-gradient(to top,rgba(255,255,255,0) 0, #fff 40%);
     }
   }
+  .bg {
+        background: rgb(68, 68, 68);
+        position: fixed;
+        top: 0;
+        left: 0;
+        height: 100%;
+        width: 100%;
+        z-index: 9000;
+    }
+    .bg p {
+        position: fixed;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%);
+        display: none;
+        z-index: 9999;
+        width: 280px;
+        color: #fff;
+        font-family: 'THE CROWN', sans-serif;
+    }
+    .bg p span{
+        font-size: 150px;
+    }
 </style>
 
 <body>
+<div class="bg">
+    <p>
+        <span class="title smooth anim">
+            Go One Step Further
+       </span>
+    </p>
+</div>
 <div class='container'>
 <div id="header"></div>
 
@@ -437,7 +468,7 @@
 </div>
 </body>
 <script>
-  $('.logoTitleOnVideo').fadeIn(3000);
+  $('.logoTitleOnVideo').fadeIn(9000);
   $(document).ready(function(){
       $('.recomendContentTypeA').hover(function(){
           $(this).stop(true, true).animate({ top:-2,opacity:1}, 150);
@@ -461,6 +492,14 @@
       }
   });
 
+  $(function() {
+        setTimeout(function(){
+            $('.bg p').fadeIn(1600);
+        },500); //0.5秒後にロゴをフェードイン!
+        setTimeout(function(){
+            $('.bg').fadeOut(500);
+        },2500); //2.5秒後にロゴ含め真っ白背景をフェードアウト！
+    });
 
   $(document).ready(function(){
       $('.topContent').hover(function(){
