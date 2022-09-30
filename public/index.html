@@ -64,8 +64,10 @@
         padding-bottom: 50px;
     }
     .topContents{
-        margin-left: 8.5vh;
-        margin-right: 8.5vh;
+        padding-left: 8.5vh;
+        padding-right: 8.5vh;
+        padding-bottom: 30px;
+        background-color: #fff;
         display: flex;
         justify-content: center;
         flex-direction: row;
@@ -89,10 +91,10 @@
         text-align: center;
         display: flex;
         flex-direction: column;
-        box-shadow:  0 0 10px #666;
+        /* box-shadow:  0 0 10px #666; */
         opacity: 0.7;
     }
-    #topContentIcon{
+    #topContentIcon_1,#topContentIcon_2,#topContentIcon_3,#topContentIcon_4{
         margin-top: 25px;
         flex:3;
         width: auto;
@@ -108,12 +110,14 @@
     }
 
     /* aboutUs */
+    #aboutUsView{
+        height: 80vh;
+        background-color: #fff;
+    }
     .aboutUs{
         background-blend-mode:lighten;
-        background:linear-gradient(to bottom, transparent 0 1%,  #fff 80%),url('img/map.jpeg'); ;
-        background-color:rgba(255,255,255,0.8);
+        background:linear-gradient(to bottom, navajowhite 0 1%,  #fff 80%),url('img/map.jpeg'); ;
         background-size: cover;
-        margin-top: 30px;
         padding-top: 10vh;
         padding-left: 18vh;
         padding-right: 18vh;
@@ -335,8 +339,8 @@
   <div class='topContents'>
     <div class = 'topContentsRow'>
       <a href="list.php?category=trip">
-          <div class='topContent'>
-              <i id='topContentIcon'class='fa-solid fa-person-walking-luggage fa-4x'></i>
+          <div class='topContent'id='content_1'style="box-shadow:  0 0 10px rgb(255, 142, 82);">
+              <i id='topContentIcon_1'class='fa-solid fa-person-walking-luggage fa-4x'style='font-size:7vw;'></i>
               <div class='topContentTextArea'>
                   <p class='topContentTitle'>旅行</p>
                   <p class='topContentSub'>trip</p>
@@ -344,8 +348,8 @@
           </div>
       </a>
       <a href="list.php?category=trip">
-          <div class='topContent'>
-              <i id='topContentIcon'class='fa-solid fa-user-graduate fa-4x'></i>
+          <div class='topContent'id='content_2' style="box-shadow:  0 0 10px rgb(255, 142, 82);">
+              <i id='topContentIcon_2'class='fa-solid fa-user-graduate fa-4x'style='font-size:7vw;'></i>
               <div class='topContentTextArea'>
                   <p class='topContentTitle'>留学</p>
                   <p class='topContentSub'>study</p>
@@ -355,8 +359,8 @@
     </div>
     <div class = 'topContentsRow'>
       <a href="list.php?category=trip">
-          <div class='topContent'>
-              <i id='topContentIcon'class='fa-solid fa-pen-clip fa-4x'></i>
+          <div class='topContent'id='content_3' style="box-shadow:  0 0 10px rgb(255, 142, 82);">
+              <i id='topContentIcon_3'class='fa-solid fa-pen-clip fa-4x'style='font-size:7vw;'></i>
               <div class='topContentTextArea'>
                   <p class='topContentTitle'>心理テスト</p>
                   <p class='topContentSub'>test</p>
@@ -364,8 +368,8 @@
           </div>
       </a>
       <a href="list.php?category=trip">
-          <div class='topContent'>
-              <i id='topContentIcon'class='fa-solid fa-book fa-4x'></i>
+          <div class='topContent'id='content_4'style="box-shadow:  0 0 10px rgb(255, 142, 82);">
+              <i id='topContentIcon_4'class='fa-solid fa-book fa-4x'style='font-size:7vw;'></i>
               <div class='topContentTextArea'>
                   <p class='topContentTitle'>豆知識</p>
                   <p class='topContentSub'>trivia</p>
@@ -375,20 +379,21 @@
     </div>
   </div>
 
-  <div class='aboutUs'>
-    <div class='aboutUsTextArea'>
-      <h2 class='aboutUsTitle'>About us</h2>
-      <div class='postView'>
-        <p class='post'>世界各地にいるスタッフが、<br>
-            全世界の情報をお届けするメディアです。 2022年エストニアで設立されました。
-        </p>
-      </div>
-      <div class='button01'>
-        <a href="aboutus.html">私たちについて</a>
-      </div>
+    <div id='aboutUsView'>
+        <div class='aboutUs'>
+            <div class='aboutUsTextArea'>
+            <h2 class='aboutUsTitle'>About us</h2>
+            <div class='postView'>
+                <p class='post'>世界各地にいるスタッフが、<br>
+                    全世界の情報をお届けするメディアです。 2022年エストニアで設立されました。
+                </p>
+            </div>
+            <div class='button01'>
+                <a href="aboutus.html">私たちについて</a>
+            </div>
+            </div>
+        </div>
     </div>
-  </div>
-
       <!--  表示するテーブル -->
       <div class='post_area typeA'>
         <h3 class='post_area_title'>Title</h3>
@@ -442,13 +447,20 @@
   });
 
   $(window).scroll(function(){
-      var pos = $('.topContents').offset();
-      if($(this).scrollTop() > pos.top ) {
-          $('.aboutUsTextArea').fadeIn();
+      var pos1 = $('.topContents').offset();
+      if($(this).scrollTop() > pos1.top ) {
+          $('.aboutUs').fadeIn();
       }else{
-          $('.aboutUsTextArea').fadeOut();
+          $('.aboutUs').fadeOut();
+      }
+      var pos2 = $('.homeVideoArea').offset();
+      if($(this).scrollTop() > pos2.top ) {
+          $('.topContent').fadeIn(2000);
+      }else{
+          $('.topContent').fadeOut();
       }
   });
+
 
   $(document).ready(function(){
       $('.topContent').hover(function(){
@@ -457,6 +469,60 @@
           $(this).stop(true, true).animate({ top: 0,opacity:0.7}, 150);
       });
   });
+
+    //マウスオーバーしたときの色を指定
+    $("#content_1").on("mouseover",function(){
+        $("#topContentIcon_1").css({
+            color: "coral",
+        });
+    });
+
+    //マウスアウトしたときに元の色に戻る
+    $("#content_1").on("mouseout",function(){
+        $("#topContentIcon_1").css({
+            color: "",
+        });
+    });
+
+    //マウスオーバーしたときの色を指定
+    $("#content_2").on("mouseover",function(){
+        $("#topContentIcon_2").css({
+            color: "coral",
+        });
+    });
+
+    //マウスアウトしたときに元の色に戻る
+    $("#content_2").on("mouseout",function(){
+        $("#topContentIcon_2").css({
+            color: "",
+        });
+    });
+    //マウスオーバーしたときの色を指定
+    $("#content_3").on("mouseover",function(){
+        $("#topContentIcon_3").css({
+            color: "coral",
+        });
+    });
+
+    //マウスアウトしたときに元の色に戻る
+    $("#content_3").on("mouseout",function(){
+        $("#topContentIcon_3").css({
+            color: "",
+        });
+    });
+    //マウスオーバーしたときの色を指定
+    $("#content_4").on("mouseover",function(){
+        $("#topContentIcon_4").css({
+            color: "coral",
+        });
+    });
+
+    //マウスアウトしたときに元の色に戻る
+    $("#content_4").on("mouseout",function(){
+        $("#topContentIcon_4").css({
+            color: "",
+        });
+    });
 // Firestoreのオブジェクト取得
   const db = firebase.firestore();
   const ref = db.collection('post');

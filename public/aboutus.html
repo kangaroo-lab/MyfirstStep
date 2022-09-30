@@ -31,7 +31,7 @@
     }
     #body-top{
         margin: 0%;
-        padding-top: 30px;
+        /* padding-top: 30px; */
         background-color: #fff;
         display: flex;
         flex-direction: column;
@@ -41,17 +41,18 @@
         align-items: center;
         align-content: center;
         align-self: center;
-        width: 80vw;
+        width: 100%;
         height: 50vh;
     }
     #img_area img{
-        object-fit: contain;
+        object-fit: cover;
         width: 100%;
         height: 100%;
     }
     #aboutus_text_area{
-        margin-top: 30px;
+        padding-top: 30px;
         padding-bottom: 200px;
+        background:linear-gradient(to bottom,rgba(255, 172, 47, 0.556) 10%,rgba(255, 172, 47, 0.782) 70%);
     }
     #title{
         text-align: center;
@@ -61,6 +62,7 @@
         display: flex;
         justify-content: space-around;
         flex-direction: row;
+        padding: 0 100px;
     }
     #about_us_content_icon{
         display: flex;
@@ -82,7 +84,7 @@
 
     #about_members_area{
         margin-top: 0;
-        background:linear-gradient(to bottom,#fff 10px,#fffae1 10%);
+        background:linear-gradient(to bottom,rgba(255, 172, 47, 0.782)  20%,#fffae1 80%);
         width: auto;
         padding-top: 8%;
     }
@@ -111,6 +113,11 @@
         align-self: center;
 
     }
+    /* #top-area{
+        display: flex;
+        flex-direction: row;
+        justify-content: space-around;
+    } */
 }
 @media screen and (max-width: 769px){}
 </style>
@@ -120,59 +127,61 @@
 
     <div id="body">
         <div id="body-top">
-            <div id="img_area">
-                <img id="members_img"src="img/ステップ仮.jpg" alt="集合写真">
-            </div>
+            <!-- <div id="top-area"> -->
+                <div id="img_area">
+                    <img id="members_img"src="img/ステップ仮.jpg" alt="集合写真">
+                </div>
 
-            <div id="aboutus_text_area">
-                <div id="title"><h2>わたしたちについて</h2></div>
-                <div id="aboutus_row">
-                    <div id="about_us_content">
-                        <div id="about_us_content_icon">
-                            <i class="fa-solid fa-plane-up"></i>
+                <div id="aboutus_text_area">
+                    <div id="title"><h2>わたしたちについて</h2></div>
+                    <div id="aboutus_row">
+                        <div id="about_us_content">
+                            <div id="about_us_content_icon">
+                                <i class="fa-solid fa-plane-up"></i>
+                            </div>
+                            <div id="about_us_text">
+                                <h4>このサイトについて</h4>
+                                <h4>WHAT IS STEP?</h4>
+                            </div>
+                            <div id="about_us_text_detail">
+                                <h4>世界各地にいるスタッフが、</h4>
+                                <h4>全世界の情報をお届けするメディアです。</h4>
+                                <h4>2022年エストニアで設立されました。</h4>
+                            </div>
                         </div>
-                        <div id="about_us_text">
-                            <h4>このサイトについて</h4>
-                            <h4>WHAT IS STEP?</h4>
-                        </div>
-                        <div id="about_us_text_detail">
-                            <h4>世界各地にいるスタッフが、</h4>
-                            <h4>全世界の情報をお届けするメディアです。</h4>
-                            <h4>2022年エストニアで設立されました。</h4>
-                        </div>
-                    </div>
 
-                    <div id="about_us_content">
-                        <div id="about_us_content_icon">
-                            <i class="fa-sharp fa-solid fa-earth-americas"></i>
+                        <div id="about_us_content">
+                            <div id="about_us_content_icon">
+                                <i class="fa-sharp fa-solid fa-earth-americas"></i>
+                            </div>
+                            <div id="about_us_text">
+                                <h4>主な発信内容</h4>
+                                <h4>CONTENTS</h4>
+                            </div>
+                            <div id="about_us_text_detail">
+                                <h4>・お役立ち情報</h4>
+                                <h4>・旅人による現地情報</h4>
+                                <h4>・商品情報</h4>
+                            </div>
                         </div>
-                        <div id="about_us_text">
-                            <h4>主な発信内容</h4>
-                            <h4>CONTENTS</h4>
-                        </div>
-                        <div id="about_us_text_detail">
-                            <h4>・お役立ち情報</h4>
-                            <h4>・旅人による現地情報</h4>
-                            <h4>・商品情報</h4>
-                        </div>
-                    </div>
 
-                    <div id="about_us_content">
-                        <div id="about_us_content_icon">
-                            <i class="fa-solid fa-suitcase-rolling"></i>
-                        </div>
-                        <div id="about_us_text">
-                            <h4>運営サイト</h4>
-                            <h4>OTHERS SITES</h4>
-                        </div>
-                        <div id="about_us_text_detail">
-                            <h4>・すてっぶ→アプリケーションバージョン</h4>
-                            <h4>・ENGLISH VERSION CLIK→HERE</h4>
+                        <div id="about_us_content">
+                            <div id="about_us_content_icon">
+                                <i class="fa-solid fa-suitcase-rolling"></i>
+                            </div>
+                            <div id="about_us_text">
+                                <h4>運営サイト</h4>
+                                <h4>OTHERS SITES</h4>
+                            </div>
+                            <div id="about_us_text_detail">
+                                <h4>・すてっぶ→アプリケーションバージョン</h4>
+                                <h4>・ENGLISH VERSION CLIK→HERE</h4>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
-            <div id="about_members_area">
+            <!-- </div> -->
+            <div id="about_members_area"style="height:100vh;">
 
                 <div id="about_member_area">
 
@@ -217,10 +226,31 @@
     })
 </script>
 <script>
-$(function(){
-    $('#header').load("component/header.html")
-    $('#footer').load("component/footer.html")
-})
+    $(function(){
+        $('#header').load("component/header.html");
+        $('#footer').load("component/footer.html");
+    })
+
+    $('#members_img').hide().fadeIn(1000);
+    $('#title').hide().fadeIn(2000)
+    $('#aboutus_row').fadeOut();
+    $('#about_member_area').fadeOut();
+    $(window).scroll(function(){
+      var pos1 = $('#members_img').offset();
+      var pos2 = $('#aboutus_row').offset();
+      if($(this).scrollTop() > pos1.top ) {
+          $('#aboutus_row').fadeIn(2000);
+      }else{
+          $('#aboutUs').fadeOut();
+      }
+      if($(this).scrollTop() > pos2.top){
+          $('#about_member_area').fadeIn(2000);
+      }else{
+          $('#about_member_area').fadeOut();
+      }
+  });
+
+
 </script>
 
 </html>
