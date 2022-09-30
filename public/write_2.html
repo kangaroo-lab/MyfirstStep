@@ -64,6 +64,9 @@
         margin: 0 350px 20px 350px;
         padding-bottom: 70px;
     }
+    #sumnail{
+        width:100%;
+    }
 </style>
 <body>
 <div id="header"></div>
@@ -184,6 +187,15 @@ function click(){
     const title = title_input.value;
     const tags = input.value;
     editor.save().then((saveData)=>{
+        saveData.blocks.forEach(elem=>{
+            if(elem.type=="table"){
+                const newData = {}
+                elem.data.content.forEach((content, i)=>{
+                    newData[i] = content
+                })
+                elem.data.content = newData
+            }
+        })
         const ref = firebase.firestore().collection('post');
         ref.add({
             type : 2,
@@ -194,6 +206,9 @@ function click(){
             user : uid
         }).then(()=>{
             window.location.href = 'index.html'
+        })
+        .catch((e)=>{
+            console.log(e.message)
         })
     })
 }

@@ -29,6 +29,12 @@
         height: 100%;
         object-fit: cover;
     }
+    #post_view{
+        padding: 20px 100px;
+    }
+    #fill{
+        width: 50vw;
+    }
 </style>
 <body>
     <div>
@@ -36,11 +42,13 @@
         <div id='sumnailDiv'>
             <img id="sumnail"src="" alt="サムネイル">
         </div>
-        <div id='titleDiv'>
-            <p id='dateTime'></p>
-            <h1 id='title'></h1>
+        <div id="post_view">
+            <div id='titleDiv'>
+                <p id='dateTime'></p>
+                <h1 id='title'></h1>
+            </div>
+            <div id='fill'></div>
         </div>
-        <div id='fill'></div>
         <div id='footer'></div>
     </div>
 </body>
@@ -79,7 +87,6 @@
                 titleTxt.innerText = data.title;
                 $('title').html(data.title);
                 const paras = putText(data.post.blocks);
-                console.log(paras)
                 paras.forEach(post => {
                     fill.appendChild(post)
                 })
@@ -113,9 +120,7 @@
                 break;
             case "list":
                 content = document.createElement('ul');
-                console.log(doc.data.items)
                 doc.data.items.forEach((text)=>{
-                console.log(text)
                 const li = document.createElement('li');
                 li.innerHTML = text
                 content.appendChild(li)
@@ -126,6 +131,16 @@
                 result.push(content)
                 break;
             case "table":
+                content = document.createElement('table');
+                Object.values(doc.data.content).forEach(elem=>{
+                    const tr = document.createElement('tr');
+                    elem.forEach(e=>{
+                        const td = document.createElement('td');
+                        td.innerHTML = e;
+                        tr.appendChild(td)
+                    })
+                    content.appendChild(tr)
+                })
                 result.push(content)
                 break;
             default:arguments
