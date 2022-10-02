@@ -54,6 +54,19 @@
     color:#fff;
     text-shadow: 0 0 15px #666;
   }
+  #logo{
+    z-index: 5;
+    display: none;
+    /*要素の配置*/
+    position:absolute;
+    /*要素を天地中央寄せ*/
+    top: 50%;
+    left: 50%;
+    transform: translateY(-50%) translateX(-50%);
+    /*見た目の調整*/
+    color:#fff;
+    text-shadow: 0 0 15px #666;
+  }
   .post_area_title{
       margin: 0 auto;
   }
@@ -342,13 +355,16 @@
     }
     .bg p span{
         font-size: 150px;
+        position: relative;
     }
+
 </style>
 
 <body>
 <div class="bg">
     <p>
         <span class="title smooth anim">
+            <img src="img/Logo-removebg-preview.png" alt="logo"style='width:80%;z-index: -2;position: absolute;right:70%;top:20%;'>
             Go One Step Further
        </span>
     </p>
@@ -357,10 +373,11 @@
 <div id="header"></div>
 
 <div class='homeVideoArea'>
+  <img class='logoTitleOnVideo'id='logo'src="img/Logo-removebg-preview.png" alt="logo"style='width:15%;'>
   <h1 class='logoTitleOnVideo'>すてっぷ</h1>
   <div class='videoArea'>
     <video id='video'poster='img/sky.jpeg'webkit-playsinline playsinline muted autoplay loop>
-      <source src='img/airplane.mp4' type="video/mp4">
+      <source src='img/top_video.mp4' type="video/mp4">
     </video>
   </div>
 </div>
