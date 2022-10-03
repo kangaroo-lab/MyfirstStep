@@ -5,7 +5,15 @@
 
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="thumbnail" content="img/Logo-removebg-preview.png">
 <meta name="description" content="旅行、留学などを初めてする人へ。全ての挑戦の第一歩を応援するまとめサイトです。">
+<meta property="og:title" content="すてっぷ"/>
+<meta property="og:description" content="旅行、留学などを初めてする人へ。全ての挑戦の第一歩を応援するまとめサイトです。"/>
+<meta property="og:type" content="article" />
+<meta property="og:url"content="https://firststep-70a5e.web.app/"/>
+<meta property="og:image"content="img/Logo-removebg-preview.png"/>
+<meta property="og:site_name" content="すてっぷ" />
+<meta property="og:locale" content="ja_JP"  />
 <title>ふぁーすとすてっぷ</title>
 <link href="https://use.fontawesome.com/releases/v6.1.2/css/all.css" rel="stylesheet">
 
@@ -361,14 +369,14 @@
 </style>
 
 <body>
-<div class="bg">
+<!-- <div class="bg">
     <p>
         <span class="title smooth anim">
             <img src="img/Logo-removebg-preview.png" alt="logo"style='width:80%;z-index: -2;position: absolute;right:70%;top:20%;'>
             Go One Step Further
        </span>
     </p>
-</div>
+</div> -->
 <div class='container'>
 <div id="header"></div>
 
@@ -386,7 +394,7 @@
   <!-- トップのコンテンツカラム -->
   <div class='topContents'>
     <div class = 'topContentsRow'>
-      <a href="list.php?category=trip">
+      <a href="trip">
           <div class='topContent'id='content_1'style="box-shadow:  0 0 10px rgb(255, 142, 82);">
               <i id='topContentIcon_1'class='fa-solid fa-person-walking-luggage fa-4x'style='font-size:7vw;'></i>
               <div class='topContentTextArea'>
@@ -395,7 +403,7 @@
               </div>
           </div>
       </a>
-      <a href="list.php?category=trip">
+      <a href="study">
           <div class='topContent'id='content_2' style="box-shadow:  0 0 10px rgb(255, 142, 82);">
               <i id='topContentIcon_2'class='fa-solid fa-user-graduate fa-4x'style='font-size:7vw;'></i>
               <div class='topContentTextArea'>
@@ -406,7 +414,7 @@
       </a>
     </div>
     <div class = 'topContentsRow'>
-      <a href="list.php?category=trip">
+      <a href="test">
           <div class='topContent'id='content_3' style="box-shadow:  0 0 10px rgb(255, 142, 82);">
               <i id='topContentIcon_3'class='fa-solid fa-pen-clip fa-4x'style='font-size:7vw;'></i>
               <div class='topContentTextArea'>
@@ -415,7 +423,7 @@
               </div>
           </div>
       </a>
-      <a href="list.php?category=trip">
+      <a href="trivia">
           <div class='topContent'id='content_4'style="box-shadow:  0 0 10px rgb(255, 142, 82);">
               <i id='topContentIcon_4'class='fa-solid fa-book fa-4x'style='font-size:7vw;'></i>
               <div class='topContentTextArea'>
@@ -437,7 +445,7 @@
                 </p>
             </div>
             <div class='button01'>
-                <a href="aboutus.html">私たちについて</a>
+                <a href="about">私たちについて</a>
             </div>
             </div>
         </div>
@@ -592,6 +600,11 @@
   function putLink(type,doc){
           const data = doc.data();
           const link = document.createElement('a');
+          let cat = 'trip';
+          if('留学' in data.tags){
+              cat = 'study'
+          }
+          console.log(cat)
           link.setAttribute('href','post.html?id='+doc.id);
           const divB = document.createElement('div');
           divB.setAttribute('class',type+'_contents');

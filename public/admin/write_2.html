@@ -84,10 +84,11 @@
     <button type="button"id='save' class="btn btn-outline-secondary ">完了</button>
   </div>
 </div>
-<footer></footer>
+<div id="footer"></div>
 <script>
 $(function(){
-    $('#header').load("component/header.html");
+    $('#header').load("../component/header.html");
+    $('#footer').load("../component/footer.html");
 })
 let uid = ''
 firebase.auth().onAuthStateChanged((user)=>{
