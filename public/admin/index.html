@@ -18,7 +18,7 @@
 <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"></script>
 <script src='https://www.gstatic.com/firebasejs/8.10.0/firebase-storage.js'></script>
 <script src='https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js'></script>
-<script src="js/config.js"></script>
+<script src="../js/config.js"></script>
 </head>
 
 <body>
@@ -30,6 +30,7 @@
             <a href="edit_index.html">記事を編集する</a>
             <a href="member_setting.html">プロフィールを編集する</a>
         </div>
+        <div id="footer"></div>
     </div>
 </body>
 
@@ -56,7 +57,7 @@
                 console.log(e.message)
             })
         } else {
-            window.location.href='login.html'
+            window.location.href='admin/login.html'
             // User is signed out
             // ...
         }
